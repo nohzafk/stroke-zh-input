@@ -1,0 +1,18 @@
+name: 笔画拼音
+author: Minis
+pinyin:
+  iPhone:
+    portrait: pinyinPortrait
+    landscape: pinyinLandscape
+alphabetic:
+  iPhone:
+    portrait: alphabeticPortrait
+    landscape: alphabeticLandscape
+numeric:
+  iPhone:
+    portrait: portraitNumeric
+    landscape: landscapeNumeric
+t9pinyin:
+  iPhone:
+    portrait: t9pinyinPortrait
+    landscape: t9pinyinLandscape

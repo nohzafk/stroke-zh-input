@@ -1,0 +1,9 @@
+# 第三方源码 (README 引用即可, 不打包)
+tools/librime-src/
+tools/librime-predict/
+# 编译产物
+tools/build_predict
+# Mac 系统文件
+.DS_Store
+# 构建中间产物
+build/

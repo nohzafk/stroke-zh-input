@@ -1,0 +1,2588 @@
+aButton:
+  action:
+    symbol: a
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  bounds:
+    alignment: right
+    width: 111/168.75
+  foregroundStyle:
+  - aButtonForegroundStyle
+  - graveButtonBadgeForegroundStyle
+  hintStyle: aButtonHintStyle
+  size:
+    width: 168.75/1125
+  swipeUpAction:
+    symbol: '`'
+  uppercasedStateAction:
+    symbol: A
+  uppercasedStateForegroundStyle: aButtonUppercaseForegroundStyle
+  hintSymbolsGridStyle: aVarGrid
+aButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: a
+aButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: A
+aButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: aButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: graveButtonSwipeUpHintForegroundStyle
+aButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: A
+alphabeticButtonBackgroundStyle:
+  buttonStyleType: geometry
+  cornerRadius: 8.5
+  highlightColor: '#4C4C4C'
+  highlightLowerEdgeColor: '#000000'
+  insets:
+    bottom: 3
+    left: 3
+    right: 3
+    top: 3
+  normalColor: '#707070'
+  normalLowerEdgeColor: '#000000'
+alphabeticHintBackgroundStyle:
+  borderSize: 0.5
+  buttonStyleType: geometry
+  cornerRadius: 10
+  normalBorderColor: '#69686A'
+  normalColor: '#707070'
+atButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: '@'
+atButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: '@'
+bButton:
+  action:
+    symbol: b
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - bButtonForegroundStyle
+  - questionMarkEnButtonBadgeForegroundStyle
+  hintStyle: bButtonHintStyle
+  swipeUpAction:
+    symbol: '?'
+  uppercasedStateAction:
+    symbol: B
+  uppercasedStateForegroundStyle: bButtonUppercaseForegroundStyle
+bButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: b
+bButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: B
+bButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: bButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: questionMarkEnButtonSwipeUpHintForegroundStyle
+bButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: B
+backspaceButton:
+  action: backspace
+  backgroundStyle: systemButtonBackgroundStyle
+  bounds:
+    alignment: right
+    width: 151/168.75
+  foregroundStyle: backspaceButtonForegroundStyle
+  repeatAction: backspace
+  size:
+    width:
+      percentage: 0.15
+backspaceButtonForegroundStyle:
+  buttonStyleType: systemImage
+  fontSize: 20
+  highlightColor: '#FFFFFF'
+  highlightSystemImageName: delete.left.fill
+  normalColor: '#FFFFFF'
+  systemImageName: delete.left
+blueButtonBackgroundStyle:
+  buttonStyleType: geometry
+  cornerRadius: 8.5
+  highlightColor: '#707070'
+  highlightLowerEdgeColor: '#000000'
+  insets:
+    bottom: 3
+    left: 3
+    right: 3
+    top: 3
+  normalColor: '#0A84FF'
+  normalLowerEdgeColor: '#000000'
+blueButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 16
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: $returnKeyType
+buttonStyleType: text
+cButton:
+  action:
+    symbol: c
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - cButtonForegroundStyle
+  - hashButtonBadgeForegroundStyle
+  hintStyle: cButtonHintStyle
+  swipeUpAction:
+    symbol: '#'
+  uppercasedStateAction:
+    symbol: C
+  uppercasedStateForegroundStyle: cButtonUppercaseForegroundStyle
+  hintSymbolsGridStyle: cVarGrid
+cButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: c
+cButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: C
+cButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: cButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: hashButtonSwipeUpHintForegroundStyle
+cButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: C
+candidateContextMenu: []
+colonButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: ':'
+colonButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: ':'
+commaButton:
+  action:
+    symbol: ','
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: commaButtonForegroundStyle
+  size:
+    width:
+      percentage: 0.1
+  swipeUpAction:
+    symbol: .
+commaButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: ','
+commitCandidateForegroundStyle:
+  buttonStyleType: text
+  fontSize: 16
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: 选定
+dButton:
+  action:
+    symbol: d
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - dButtonForegroundStyle
+  - colonButtonBadgeForegroundStyle
+  hintStyle: dButtonHintStyle
+  swipeUpAction:
+    symbol: ':'
+  uppercasedStateAction:
+    symbol: D
+  uppercasedStateForegroundStyle: dButtonUppercaseForegroundStyle
+  hintSymbolsGridStyle: dVarGrid
+dButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: d
+dButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: D
+dButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: dButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: colonButtonSwipeUpHintForegroundStyle
+dButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: D
+eButton:
+  action:
+    symbol: e
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - eButtonForegroundStyle
+  - threeButtonBadgeForegroundStyle
+  hintStyle: eButtonHintStyle
+  swipeUpAction:
+    symbol: '3'
+  uppercasedStateAction:
+    symbol: E
+  uppercasedStateForegroundStyle: eButtonUppercaseForegroundStyle
+  hintSymbolsGridStyle: eVarGrid
+eButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: e
+eButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: E
+eButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: eButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: threeButtonSwipeUpHintForegroundStyle
+eButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: E
+eightButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: '8'
+eightButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: '8'
+ellipsisButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: …
+ellipsisButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: …
+enterButton:
+  action: enter
+  backgroundStyle: systemButtonBackgroundStyle
+  foregroundStyle: enterButtonForegroundStyle
+  notification:
+  - returnKeyTypeChangedNotification
+  - preeditChangedForEnterButtonNotification
+  size:
+    width:
+      percentage: 0.2
+  swipeUpAction:
+    symbol: "\r\n"
+enterButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 16
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: $returnKeyType
+exclamationMarkButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: '!'
+exclamationMarkButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: '!'
+expandButton:
+  action:
+    shortcut: '#candidatesBarStateToggle'
+  foregroundStyle: expandButtonForegroundStyle
+  size:
+    width: 44
+expandButtonForegroundStyle:
+  buttonStyleType: systemImage
+  fontSize: 20
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  systemImageName: chevron.forward
+fButton:
+  action:
+    symbol: f
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - fButtonForegroundStyle
+  - semicolonButtonBadgeForegroundStyle
+  hintStyle: fButtonHintStyle
+  swipeUpAction:
+    symbol: ;
+  uppercasedStateAction:
+    symbol: F
+  uppercasedStateForegroundStyle: fButtonUppercaseForegroundStyle
+fButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: f
+fButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: F
+fButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: fButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: semicolonButtonSwipeUpHintForegroundStyle
+fButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: F
+fiveButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: '5'
+fiveButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: '5'
+fontSize: 26
+forwardSlashButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: /
+forwardSlashButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: /
+fourButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: '4'
+fourButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: '4'
+gButton:
+  action:
+    symbol: g
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - gButtonForegroundStyle
+  - leftParenthesisButtonBadgeForegroundStyle
+  hintStyle: gButtonHintStyle
+  swipeUpAction:
+    symbol: (
+  uppercasedStateAction:
+    symbol: G
+  uppercasedStateForegroundStyle: gButtonUppercaseForegroundStyle
+  hintSymbolsGridStyle: gVarGrid
+gButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: g
+gButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: G
+gButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: gButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: leftParenthesisButtonSwipeUpHintForegroundStyle
+gButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: G
+graveButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: '`'
+graveButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: '`'
+hButton:
+  action:
+    symbol: h
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - hButtonForegroundStyle
+  - rightParenthesisButtonBadgeForegroundStyle
+  hintStyle: hButtonHintStyle
+  swipeUpAction:
+    symbol: )
+  uppercasedStateAction:
+    symbol: H
+  uppercasedStateForegroundStyle: hButtonUppercaseForegroundStyle
+hButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: h
+hButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: H
+hButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: hButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: rightParenthesisButtonSwipeUpHintForegroundStyle
+hButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: H
+hashButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: '#'
+hashButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: '#'
+horizontalCandidateStyle:
+  commentColor: '#FFFFFF'
+  commentFontSize: 14
+  highlightBackgroundColor: '#707070'
+  indexColor: '#FFFFFF'
+  indexFontSize: 12
+  preferredBackgroundColor: '#707070'
+  preferredCommentColor: '#FFFFFF'
+  preferredIndexColor: '#FFFFFF'
+  preferredTextColor: '#FFFFFF'
+  textColor: '#FFFFFF'
+  textFontSize: 16
+horizontalCandidates:
+  candidateStyle: horizontalCandidateStyle
+  type: horizontalCandidates
+horizontalCandidatesLayout:
+- HStack:
+    subviews:
+    - Cell: horizontalCandidates
+    - Cell: expandButton
+horizontalCandidatesStyle:
+  backgroundStyle: keyboardBackgroundStyle
+  insets:
+    bottom: 1
+    left: 3
+    top: 8
+iButton:
+  action:
+    symbol: i
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - iButtonForegroundStyle
+  - eightButtonBadgeForegroundStyle
+  hintStyle: iButtonHintStyle
+  swipeUpAction:
+    symbol: '8'
+  uppercasedStateAction:
+    symbol: I
+  uppercasedStateForegroundStyle: iButtonUppercaseForegroundStyle
+  hintSymbolsGridStyle: iVarGrid
+iButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: i
+iButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: I
+iButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: iButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: eightButtonSwipeUpHintForegroundStyle
+iButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: I
+ideographicCommaButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: 、
+ideographicCommaButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: 、
+jButton:
+  action:
+    symbol: j
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - jButtonForegroundStyle
+  - tildeButtonBadgeForegroundStyle
+  hintStyle: jButtonHintStyle
+  swipeUpAction:
+    symbol: '~'
+  uppercasedStateAction:
+    symbol: J
+  uppercasedStateForegroundStyle: jButtonUppercaseForegroundStyle
+jButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: j
+jButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: J
+jButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: jButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: tildeButtonSwipeUpHintForegroundStyle
+jButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: J
+kButton:
+  action:
+    symbol: k
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - kButtonForegroundStyle
+  - leftCurlyQuoteButtonBadgeForegroundStyle
+  hintStyle: kButtonHintStyle
+  swipeUpAction:
+    symbol: “
+  uppercasedStateAction:
+    symbol: K
+  uppercasedStateForegroundStyle: kButtonUppercaseForegroundStyle
+kButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: k
+kButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: K
+kButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: kButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: leftCurlyQuoteButtonSwipeUpHintForegroundStyle
+kButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: K
+keyboardBackgroundStyle:
+  buttonStyleType: geometry
+  normalColor: '#00000003'
+keyboardHeight: 160
+keyboardLayout:
+- HStack:
+    subviews:
+    - Cell: qButton
+    - Cell: wButton
+    - Cell: eButton
+    - Cell: rButton
+    - Cell: tButton
+    - Cell: yButton
+    - Cell: uButton
+    - Cell: iButton
+    - Cell: oButton
+    - Cell: pButton
+- HStack:
+    subviews:
+    - Cell: aButton
+    - Cell: sButton
+    - Cell: dButton
+    - Cell: fButton
+    - Cell: gButton
+    - Cell: hButton
+    - Cell: jButton
+    - Cell: kButton
+    - Cell: lButton
+    - {}
+- HStack:
+    subviews:
+    - Cell: shiftButton
+    - Cell: zButton
+    - Cell: xButton
+    - Cell: cButton
+    - Cell: vButton
+    - Cell: bButton
+    - Cell: nButton
+    - Cell: mButton
+    - Cell: backspaceButton
+- HStack:
+    subviews:
+    - Cell: numericButton
+    - Cell: commaButton
+    - Cell: spaceButton
+    - Cell: questionButton
+    - Cell: symbolicSwitchButton
+    - Cell: t9PinyinButton
+    - Cell: enterButton
+keyboardStyle:
+  backgroundStyle: keyboardBackgroundStyle
+lButton:
+  action:
+    symbol: l
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  bounds:
+    alignment: left
+    width: 111/168.75
+  foregroundStyle:
+  - lButtonForegroundStyle
+  - rightCurlyQuoteButtonBadgeForegroundStyle
+  hintStyle: lButtonHintStyle
+  size:
+    width: 168.75/1125
+  swipeUpAction:
+    symbol: ”
+  uppercasedStateAction:
+    symbol: L
+  uppercasedStateForegroundStyle: lButtonUppercaseForegroundStyle
+  hintSymbolsGridStyle: lVarGrid
+lButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: l
+lButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: L
+lButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: lButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: rightCurlyQuoteButtonSwipeUpHintForegroundStyle
+lButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: L
+leftCurlyQuoteButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: “
+leftCurlyQuoteButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: “
+leftParenthesisButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: (
+leftParenthesisButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: (
+mButton:
+  action:
+    symbol: m
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - mButtonForegroundStyle
+  - ellipsisButtonBadgeForegroundStyle
+  hintStyle: mButtonHintStyle
+  swipeUpAction:
+    symbol: …
+  uppercasedStateAction:
+    symbol: M
+  uppercasedStateForegroundStyle: mButtonUppercaseForegroundStyle
+mButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: m
+mButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: M
+mButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: mButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: ellipsisButtonSwipeUpHintForegroundStyle
+mButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: M
+nButton:
+  action:
+    symbol: n
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - nButtonForegroundStyle
+  - exclamationMarkButtonBadgeForegroundStyle
+  hintStyle: nButtonHintStyle
+  swipeUpAction:
+    symbol: '!'
+  uppercasedStateAction:
+    symbol: N
+  uppercasedStateForegroundStyle: nButtonUppercaseForegroundStyle
+  hintSymbolsGridStyle: nVarGrid
+nButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: n
+nButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: N
+nButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: nButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: exclamationMarkButtonSwipeUpHintForegroundStyle
+nButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: N
+nineButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: '9'
+nineButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: '9'
+normalColor: '#FFFFFF'
+numericButton:
+  action:
+    keyboardType: numeric
+  backgroundStyle: systemButtonBackgroundStyle
+  foregroundStyle: numericButtonForegroundStyle
+  size:
+    width:
+      percentage: 0.2
+numericButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 16
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: '123'
+oButton:
+  action:
+    symbol: o
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - oButtonForegroundStyle
+  - nineButtonBadgeForegroundStyle
+  hintStyle: oButtonHintStyle
+  swipeUpAction:
+    symbol: '9'
+  uppercasedStateAction:
+    symbol: O
+  uppercasedStateForegroundStyle: oButtonUppercaseForegroundStyle
+  hintSymbolsGridStyle: oVarGrid
+oButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: o
+oButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: O
+oButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: oButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: nineButtonSwipeUpHintForegroundStyle
+oButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: O
+oneButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: '1'
+oneButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: '1'
+pButton:
+  action:
+    symbol: p
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - pButtonForegroundStyle
+  - zeroButtonBadgeForegroundStyle
+  hintStyle: pButtonHintStyle
+  swipeUpAction:
+    symbol: '0'
+  uppercasedStateAction:
+    symbol: P
+  uppercasedStateForegroundStyle: pButtonUppercaseForegroundStyle
+pButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: p
+pButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: P
+pButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: pButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: zeroButtonSwipeUpHintForegroundStyle
+pButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: P
+periodButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: .
+periodButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: .
+preeditChangedForEnterButtonNotification:
+  backgroundStyle:
+  - conditionKey: $returnKeyType
+    conditionValue:
+    - 0
+    - 2
+    - 3
+    - 5
+    - 6
+    - 8
+    - 11
+    styleName: systemButtonBackgroundStyle
+  - conditionKey: $returnKeyType
+    conditionValue:
+    - 1
+    - 4
+    - 7
+    - 9
+    - 10
+    styleName: blueButtonBackgroundStyle
+  foregroundStyle:
+  - conditionKey: $returnKeyType
+    conditionValue:
+    - 0
+    - 2
+    - 3
+    - 5
+    - 6
+    - 8
+    - 11
+    styleName: enterButtonForegroundStyle
+  - conditionKey: $returnKeyType
+    conditionValue:
+    - 1
+    - 4
+    - 7
+    - 9
+    - 10
+    styleName: blueButtonForegroundStyle
+  notificationType: preeditChanged
+preeditChangedForSpaceButtonNotification:
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: commitCandidateForegroundStyle
+  notificationType: preeditChanged
+preeditForegroundStyle:
+  buttonStyleType: text
+  fontSize: 17
+  normalColor: '#FFFFFF'
+preeditHeight: 25
+preeditStyle:
+  backgroundStyle: keyboardBackgroundStyle
+  foregroundStyle: preeditForegroundStyle
+  insets:
+    left: 4
+    top: 2
+qButton:
+  action:
+    symbol: q
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - qButtonForegroundStyle
+  - oneButtonBadgeForegroundStyle
+  hintStyle: qButtonHintStyle
+  swipeUpAction:
+    symbol: '1'
+  uppercasedStateAction:
+    symbol: Q
+  uppercasedStateForegroundStyle: qButtonUppercaseForegroundStyle
+qButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: q
+qButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: Q
+qButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: qButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: oneButtonSwipeUpHintForegroundStyle
+qButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: Q
+questionMarkEnButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: '?'
+questionMarkEnButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: '?'
+rButton:
+  action:
+    symbol: r
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - rButtonForegroundStyle
+  - fourButtonBadgeForegroundStyle
+  hintStyle: rButtonHintStyle
+  swipeUpAction:
+    symbol: '4'
+  uppercasedStateAction:
+    symbol: R
+  uppercasedStateForegroundStyle: rButtonUppercaseForegroundStyle
+  hintSymbolsGridStyle: rVarGrid
+rButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: r
+rButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: R
+rButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: rButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: fourButtonSwipeUpHintForegroundStyle
+rButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: R
+returnKeyTypeChangedNotification:
+  backgroundStyle: blueButtonBackgroundStyle
+  foregroundStyle: blueButtonForegroundStyle
+  notificationType: returnKeyType
+  returnKeyType:
+  - 1
+  - 4
+  - 7
+rightCurlyQuoteButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: ”
+rightCurlyQuoteButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: ”
+rightParenthesisButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: )
+rightParenthesisButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: )
+sButton:
+  action:
+    symbol: s
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - sButtonForegroundStyle
+  - forwardSlashButtonBadgeForegroundStyle
+  hintStyle: sButtonHintStyle
+  swipeUpAction:
+    symbol: /
+  uppercasedStateAction:
+    symbol: S
+  uppercasedStateForegroundStyle: sButtonUppercaseForegroundStyle
+  hintSymbolsGridStyle: sVarGrid
+sButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: s
+sButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: S
+sButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: sButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: forwardSlashButtonSwipeUpHintForegroundStyle
+sButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: S
+semicolonButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: ;
+semicolonButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: ;
+sevenButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: '7'
+sevenButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: '7'
+shiftButton:
+  action: shift
+  backgroundStyle: systemButtonBackgroundStyle
+  bounds:
+    alignment: left
+    width: 151/168.75
+  capsLockedStateForegroundStyle: shiftButtonCapsLockedForegroundStyle
+  foregroundStyle: shiftButtonForegroundStyle
+  size:
+    width:
+      percentage: 0.15
+  uppercasedStateForegroundStyle: shiftButtonUppercasedForegroundStyle
+shiftButtonCapsLockedForegroundStyle:
+  buttonStyleType: systemImage
+  fontSize: 20
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  systemImageName: capslock.fill
+shiftButtonForegroundStyle:
+  buttonStyleType: systemImage
+  fontSize: 20
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  systemImageName: shift
+shiftButtonUppercasedForegroundStyle:
+  buttonStyleType: systemImage
+  fontSize: 20
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  systemImageName: shift.fill
+sixButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: '6'
+sixButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: '6'
+spaceButton:
+  action: space
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: spaceButtonForegroundStyle
+  notification:
+  - preeditChangedForSpaceButtonNotification
+  swipeUpAction:
+    shortcut: '#次选上屏'
+spaceButtonForegroundStyle:
+  buttonStyleType: systemImage
+  fontSize: 20
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  systemImageName: space
+systemButtonBackgroundStyle:
+  buttonStyleType: geometry
+  cornerRadius: 8.5
+  highlightColor: '#707070'
+  highlightLowerEdgeColor: '#000000'
+  insets:
+    bottom: 3
+    left: 3
+    right: 3
+    top: 3
+  normalColor: '#4C4C4C'
+  normalLowerEdgeColor: '#000000'
+t9PinyinButton:
+  action:
+    keyboardType: pinyin
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t9PinyinButtonForegroundStyle
+  size:
+    width:
+      percentage: 0.1
+t9PinyinButtonForegroundStyle:
+  buttonStyleType: text
+  text: 中英
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 12
+tButton:
+  action:
+    symbol: t
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - tButtonForegroundStyle
+  - fiveButtonBadgeForegroundStyle
+  hintStyle: tButtonHintStyle
+  swipeUpAction:
+    symbol: '5'
+  uppercasedStateAction:
+    symbol: T
+  uppercasedStateForegroundStyle: tButtonUppercaseForegroundStyle
+  hintSymbolsGridStyle: tVarGrid
+tButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: t
+tButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: T
+tButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: tButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: fiveButtonSwipeUpHintForegroundStyle
+tButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: T
+threeButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: '3'
+threeButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: '3'
+tildeButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: '~'
+tildeButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: '~'
+toolbarHeight: 40
+toolbarLayout: {}
+toolbarStyle:
+  backgroundStyle: keyboardBackgroundStyle
+twoButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: '2'
+twoButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: '2'
+uButton:
+  action:
+    symbol: u
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - uButtonForegroundStyle
+  - sevenButtonBadgeForegroundStyle
+  hintStyle: uButtonHintStyle
+  swipeUpAction:
+    symbol: '7'
+  uppercasedStateAction:
+    symbol: U
+  uppercasedStateForegroundStyle: uButtonUppercaseForegroundStyle
+  hintSymbolsGridStyle: uVarGrid
+uButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: u
+uButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: U
+uButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: uButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: sevenButtonSwipeUpHintForegroundStyle
+uButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: U
+vButton:
+  action:
+    symbol: v
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - vButtonForegroundStyle
+  - ideographicCommaButtonBadgeForegroundStyle
+  hintStyle: vButtonHintStyle
+  swipeUpAction:
+    symbol: 、
+  uppercasedStateAction:
+    symbol: V
+  uppercasedStateForegroundStyle: vButtonUppercaseForegroundStyle
+vButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: v
+vButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: V
+vButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: vButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: ideographicCommaButtonSwipeUpHintForegroundStyle
+vButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: V
+verticalBackspaceButtonStyle:
+  action: backspace
+  backgroundStyle: systemButtonBackgroundStyle
+  foregroundStyle: verticalBackspaceButtonStyleForegroundStyle
+verticalBackspaceButtonStyleForegroundStyle:
+  buttonStyleType: systemImage
+  fontSize: 20
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  systemImageName: delete.left
+verticalCandidateStyle:
+  commentColor: '#FFFFFF'
+  commentFontSize: 14
+  highlightBackgroundColor: '#707070'
+  indexColor: '#FFFFFF'
+  indexFontSize: 12
+  insets:
+    bottom: 4
+    left: 6
+    right: 6
+    top: 4
+  preferredBackgroundColor: '#707070'
+  preferredCommentColor: '#FFFFFF'
+  preferredIndexColor: '#FFFFFF'
+  preferredTextColor: '#FFFFFF'
+  textColor: '#FFFFFF'
+  textFontSize: 16
+verticalCandidates:
+  candidateStyle: verticalCandidateStyle
+  insets:
+    bottom: 8
+    left: 8
+    right: 8
+    top: 8
+  maxColumns: 6
+  maxRows: 5
+  separatorColor: '#38383A'
+  type: verticalCandidates
+verticalCandidatesLayout:
+- HStack:
+    subviews:
+    - Cell: verticalCandidates
+- HStack:
+    style: verticalLastRowStyle
+    subviews:
+    - Cell: verticalPageUpButtonStyle
+    - Cell: verticalPageDownButtonStyle
+    - Cell: verticalReturnButtonStyle
+    - Cell: verticalBackspaceButtonStyle
+verticalCandidatesStyle:
+  backgroundStyle: keyboardBackgroundStyle
+verticalLastRowStyle:
+  size:
+    height: 45
+verticalPageDownButtonStyle:
+  action:
+    shortcut: '#verticalCandidatesPageDown'
+  backgroundStyle: systemButtonBackgroundStyle
+  foregroundStyle: verticalPageDownButtonStyleForegroundStyle
+verticalPageDownButtonStyleForegroundStyle:
+  buttonStyleType: systemImage
+  fontSize: 20
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  systemImageName: chevron.down
+verticalPageUpButtonStyle:
+  action:
+    shortcut: '#verticalCandidatesPageUp'
+  backgroundStyle: systemButtonBackgroundStyle
+  foregroundStyle: verticalPageUpButtonStyleForegroundStyle
+verticalPageUpButtonStyleForegroundStyle:
+  buttonStyleType: systemImage
+  fontSize: 20
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  systemImageName: chevron.up
+verticalReturnButtonStyle:
+  action:
+    shortcut: '#candidatesBarStateToggle'
+  backgroundStyle: systemButtonBackgroundStyle
+  foregroundStyle: verticalReturnButtonStyleForegroundStyle
+verticalReturnButtonStyleForegroundStyle:
+  buttonStyleType: systemImage
+  fontSize: 20
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  systemImageName: return
+wButton:
+  action:
+    symbol: w
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - wButtonForegroundStyle
+  - twoButtonBadgeForegroundStyle
+  hintStyle: wButtonHintStyle
+  swipeUpAction:
+    symbol: '2'
+  uppercasedStateAction:
+    symbol: W
+  uppercasedStateForegroundStyle: wButtonUppercaseForegroundStyle
+wButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: w
+wButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: W
+wButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: wButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: twoButtonSwipeUpHintForegroundStyle
+wButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: W
+xButton:
+  action:
+    symbol: x
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - xButtonForegroundStyle
+  - periodButtonBadgeForegroundStyle
+  hintStyle: xButtonHintStyle
+  swipeUpAction:
+    symbol: .
+  uppercasedStateAction:
+    symbol: X
+  uppercasedStateForegroundStyle: xButtonUppercaseForegroundStyle
+xButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: x
+xButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: X
+xButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: xButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: periodButtonSwipeUpHintForegroundStyle
+xButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: X
+yButton:
+  action:
+    symbol: y
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - yButtonForegroundStyle
+  - sixButtonBadgeForegroundStyle
+  hintStyle: yButtonHintStyle
+  swipeUpAction:
+    symbol: '6'
+  uppercasedStateAction:
+    symbol: Y
+  uppercasedStateForegroundStyle: yButtonUppercaseForegroundStyle
+  hintSymbolsGridStyle: yVarGrid
+yButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: y
+yButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: Y
+yButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: yButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: sixButtonSwipeUpHintForegroundStyle
+yButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: Y
+zButton:
+  action:
+    symbol: z
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle:
+  - zButtonForegroundStyle
+  - atButtonBadgeForegroundStyle
+  hintStyle: zButtonHintStyle
+  swipeUpAction:
+    symbol: '@'
+  uppercasedStateAction:
+    symbol: Z
+  uppercasedStateForegroundStyle: zButtonUppercaseForegroundStyle
+  hintSymbolsGridStyle: zVarGrid
+zButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: z
+zButtonHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: Z
+zButtonHintStyle:
+  backgroundStyle: alphabeticHintBackgroundStyle
+  foregroundStyle: zButtonHintForegroundStyle
+  size:
+    height: 50
+    width: 50
+  swipeUpForegroundStyle: atButtonSwipeUpHintForegroundStyle
+zButtonUppercaseForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: Z
+zeroButtonBadgeForegroundStyle:
+  buttonStyleType: text
+  center:
+    y: 0.2
+  fontSize: 11
+  highlightColor: '#ebebf599'
+  normalColor: '#ebebf599'
+  text: '0'
+zeroButtonSwipeUpHintForegroundStyle:
+  buttonStyleType: text
+  fontSize: 26
+  normalColor: '#FFFFFF'
+  text: '0'
+symbolicSwitchButton:
+  action:
+    keyboardType: symbolic
+  backgroundStyle: systemButtonBackgroundStyle
+  foregroundStyle: symbolicSwitchButtonForegroundStyle
+  size:
+    width:
+      percentage: 0.1
+symbolicSwitchButtonForegroundStyle:
+  buttonStyleType: text
+  text: '#+='
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 14
+questionButton:
+  action:
+    symbol: ？
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: questionButtonForegroundStyle
+  size:
+    width:
+      percentage: 0.1
+questionButtonForegroundStyle:
+  buttonStyleType: text
+  text: ？
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 18
+gridPanelBackgroundStyle:
+  buttonStyleType: geometry
+  normalColor: '#3A3A3A'
+  cornerRadius: 8
+  insets:
+    top: 4
+    bottom: 4
+    left: 4
+    right: 4
+gridPanelSelectedStyle:
+  buttonStyleType: geometry
+  normalColor: '#0A84FF'
+  cornerRadius: 6
+aV0Style:
+  foregroundStyle: aV0Fg
+  action:
+    symbol: à
+aV0Fg:
+  buttonStyleType: text
+  text: à
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+aV1Style:
+  foregroundStyle: aV1Fg
+  action:
+    symbol: á
+aV1Fg:
+  buttonStyleType: text
+  text: á
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+aV2Style:
+  foregroundStyle: aV2Fg
+  action:
+    symbol: â
+aV2Fg:
+  buttonStyleType: text
+  text: â
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+aV3Style:
+  foregroundStyle: aV3Fg
+  action:
+    symbol: ä
+aV3Fg:
+  buttonStyleType: text
+  text: ä
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+aV4Style:
+  foregroundStyle: aV4Fg
+  action:
+    symbol: æ
+aV4Fg:
+  buttonStyleType: text
+  text: æ
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+aV5Style:
+  foregroundStyle: aV5Fg
+  action:
+    symbol: ā
+aV5Fg:
+  buttonStyleType: text
+  text: ā
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+aV6Style:
+  foregroundStyle: aV6Fg
+  action:
+    symbol: å
+aV6Fg:
+  buttonStyleType: text
+  text: å
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+aVarGrid:
+  size:
+    width: 40
+    height: 40
+  spacing:
+    horizontal: 2
+    vertical: 2
+  insets:
+    top: 4
+    bottom: 4
+    left: 4
+    right: 4
+  backgroundStyle: gridPanelBackgroundStyle
+  selectedBackgroundStyle: gridPanelSelectedStyle
+  symbolRows:
+  - - aV0Style
+    - aV1Style
+    - aV2Style
+    - aV3Style
+    - aV4Style
+    - aV5Style
+    - aV6Style
+eV0Style:
+  foregroundStyle: eV0Fg
+  action:
+    symbol: é
+eV0Fg:
+  buttonStyleType: text
+  text: é
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+eV1Style:
+  foregroundStyle: eV1Fg
+  action:
+    symbol: è
+eV1Fg:
+  buttonStyleType: text
+  text: è
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+eV2Style:
+  foregroundStyle: eV2Fg
+  action:
+    symbol: ê
+eV2Fg:
+  buttonStyleType: text
+  text: ê
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+eV3Style:
+  foregroundStyle: eV3Fg
+  action:
+    symbol: ë
+eV3Fg:
+  buttonStyleType: text
+  text: ë
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+eV4Style:
+  foregroundStyle: eV4Fg
+  action:
+    symbol: ē
+eV4Fg:
+  buttonStyleType: text
+  text: ē
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+eV5Style:
+  foregroundStyle: eV5Fg
+  action:
+    symbol: ĕ
+eV5Fg:
+  buttonStyleType: text
+  text: ĕ
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+eV6Style:
+  foregroundStyle: eV6Fg
+  action:
+    symbol: ě
+eV6Fg:
+  buttonStyleType: text
+  text: ě
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+eVarGrid:
+  size:
+    width: 40
+    height: 40
+  spacing:
+    horizontal: 2
+    vertical: 2
+  insets:
+    top: 4
+    bottom: 4
+    left: 4
+    right: 4
+  backgroundStyle: gridPanelBackgroundStyle
+  selectedBackgroundStyle: gridPanelSelectedStyle
+  symbolRows:
+  - - eV0Style
+    - eV1Style
+    - eV2Style
+    - eV3Style
+    - eV4Style
+    - eV5Style
+    - eV6Style
+iV0Style:
+  foregroundStyle: iV0Fg
+  action:
+    symbol: í
+iV0Fg:
+  buttonStyleType: text
+  text: í
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+iV1Style:
+  foregroundStyle: iV1Fg
+  action:
+    symbol: ì
+iV1Fg:
+  buttonStyleType: text
+  text: ì
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+iV2Style:
+  foregroundStyle: iV2Fg
+  action:
+    symbol: î
+iV2Fg:
+  buttonStyleType: text
+  text: î
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+iV3Style:
+  foregroundStyle: iV3Fg
+  action:
+    symbol: ï
+iV3Fg:
+  buttonStyleType: text
+  text: ï
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+iV4Style:
+  foregroundStyle: iV4Fg
+  action:
+    symbol: ī
+iV4Fg:
+  buttonStyleType: text
+  text: ī
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+iV5Style:
+  foregroundStyle: iV5Fg
+  action:
+    symbol: ĩ
+iV5Fg:
+  buttonStyleType: text
+  text: ĩ
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+iVarGrid:
+  size:
+    width: 40
+    height: 40
+  spacing:
+    horizontal: 2
+    vertical: 2
+  insets:
+    top: 4
+    bottom: 4
+    left: 4
+    right: 4
+  backgroundStyle: gridPanelBackgroundStyle
+  selectedBackgroundStyle: gridPanelSelectedStyle
+  symbolRows:
+  - - iV0Style
+    - iV1Style
+    - iV2Style
+    - iV3Style
+    - iV4Style
+    - iV5Style
+oV0Style:
+  foregroundStyle: oV0Fg
+  action:
+    symbol: ó
+oV0Fg:
+  buttonStyleType: text
+  text: ó
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+oV1Style:
+  foregroundStyle: oV1Fg
+  action:
+    symbol: ò
+oV1Fg:
+  buttonStyleType: text
+  text: ò
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+oV2Style:
+  foregroundStyle: oV2Fg
+  action:
+    symbol: ô
+oV2Fg:
+  buttonStyleType: text
+  text: ô
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+oV3Style:
+  foregroundStyle: oV3Fg
+  action:
+    symbol: ö
+oV3Fg:
+  buttonStyleType: text
+  text: ö
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+oV4Style:
+  foregroundStyle: oV4Fg
+  action:
+    symbol: ō
+oV4Fg:
+  buttonStyleType: text
+  text: ō
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+oV5Style:
+  foregroundStyle: oV5Fg
+  action:
+    symbol: õ
+oV5Fg:
+  buttonStyleType: text
+  text: õ
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+oV6Style:
+  foregroundStyle: oV6Fg
+  action:
+    symbol: œ
+oV6Fg:
+  buttonStyleType: text
+  text: œ
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+oVarGrid:
+  size:
+    width: 40
+    height: 40
+  spacing:
+    horizontal: 2
+    vertical: 2
+  insets:
+    top: 4
+    bottom: 4
+    left: 4
+    right: 4
+  backgroundStyle: gridPanelBackgroundStyle
+  selectedBackgroundStyle: gridPanelSelectedStyle
+  symbolRows:
+  - - oV0Style
+    - oV1Style
+    - oV2Style
+    - oV3Style
+    - oV4Style
+    - oV5Style
+    - oV6Style
+uV0Style:
+  foregroundStyle: uV0Fg
+  action:
+    symbol: ú
+uV0Fg:
+  buttonStyleType: text
+  text: ú
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+uV1Style:
+  foregroundStyle: uV1Fg
+  action:
+    symbol: ù
+uV1Fg:
+  buttonStyleType: text
+  text: ù
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+uV2Style:
+  foregroundStyle: uV2Fg
+  action:
+    symbol: û
+uV2Fg:
+  buttonStyleType: text
+  text: û
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+uV3Style:
+  foregroundStyle: uV3Fg
+  action:
+    symbol: ü
+uV3Fg:
+  buttonStyleType: text
+  text: ü
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+uV4Style:
+  foregroundStyle: uV4Fg
+  action:
+    symbol: ū
+uV4Fg:
+  buttonStyleType: text
+  text: ū
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+uV5Style:
+  foregroundStyle: uV5Fg
+  action:
+    symbol: ũ
+uV5Fg:
+  buttonStyleType: text
+  text: ũ
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+uVarGrid:
+  size:
+    width: 40
+    height: 40
+  spacing:
+    horizontal: 2
+    vertical: 2
+  insets:
+    top: 4
+    bottom: 4
+    left: 4
+    right: 4
+  backgroundStyle: gridPanelBackgroundStyle
+  selectedBackgroundStyle: gridPanelSelectedStyle
+  symbolRows:
+  - - uV0Style
+    - uV1Style
+    - uV2Style
+    - uV3Style
+    - uV4Style
+    - uV5Style
+cV0Style:
+  foregroundStyle: cV0Fg
+  action:
+    symbol: ç
+cV0Fg:
+  buttonStyleType: text
+  text: ç
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+cV1Style:
+  foregroundStyle: cV1Fg
+  action:
+    symbol: ć
+cV1Fg:
+  buttonStyleType: text
+  text: ć
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+cV2Style:
+  foregroundStyle: cV2Fg
+  action:
+    symbol: č
+cV2Fg:
+  buttonStyleType: text
+  text: č
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+cVarGrid:
+  size:
+    width: 40
+    height: 40
+  spacing:
+    horizontal: 2
+    vertical: 2
+  insets:
+    top: 4
+    bottom: 4
+    left: 4
+    right: 4
+  backgroundStyle: gridPanelBackgroundStyle
+  selectedBackgroundStyle: gridPanelSelectedStyle
+  symbolRows:
+  - - cV0Style
+    - cV1Style
+    - cV2Style
+nV0Style:
+  foregroundStyle: nV0Fg
+  action:
+    symbol: ñ
+nV0Fg:
+  buttonStyleType: text
+  text: ñ
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+nV1Style:
+  foregroundStyle: nV1Fg
+  action:
+    symbol: ń
+nV1Fg:
+  buttonStyleType: text
+  text: ń
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+nV2Style:
+  foregroundStyle: nV2Fg
+  action:
+    symbol: ň
+nV2Fg:
+  buttonStyleType: text
+  text: ň
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+nVarGrid:
+  size:
+    width: 40
+    height: 40
+  spacing:
+    horizontal: 2
+    vertical: 2
+  insets:
+    top: 4
+    bottom: 4
+    left: 4
+    right: 4
+  backgroundStyle: gridPanelBackgroundStyle
+  selectedBackgroundStyle: gridPanelSelectedStyle
+  symbolRows:
+  - - nV0Style
+    - nV1Style
+    - nV2Style
+sV0Style:
+  foregroundStyle: sV0Fg
+  action:
+    symbol: ś
+sV0Fg:
+  buttonStyleType: text
+  text: ś
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+sV1Style:
+  foregroundStyle: sV1Fg
+  action:
+    symbol: š
+sV1Fg:
+  buttonStyleType: text
+  text: š
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+sV2Style:
+  foregroundStyle: sV2Fg
+  action:
+    symbol: ş
+sV2Fg:
+  buttonStyleType: text
+  text: ş
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+sVarGrid:
+  size:
+    width: 40
+    height: 40
+  spacing:
+    horizontal: 2
+    vertical: 2
+  insets:
+    top: 4
+    bottom: 4
+    left: 4
+    right: 4
+  backgroundStyle: gridPanelBackgroundStyle
+  selectedBackgroundStyle: gridPanelSelectedStyle
+  symbolRows:
+  - - sV0Style
+    - sV1Style
+    - sV2Style
+zV0Style:
+  foregroundStyle: zV0Fg
+  action:
+    symbol: ź
+zV0Fg:
+  buttonStyleType: text
+  text: ź
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+zV1Style:
+  foregroundStyle: zV1Fg
+  action:
+    symbol: ž
+zV1Fg:
+  buttonStyleType: text
+  text: ž
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+zV2Style:
+  foregroundStyle: zV2Fg
+  action:
+    symbol: ż
+zV2Fg:
+  buttonStyleType: text
+  text: ż
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+zVarGrid:
+  size:
+    width: 40
+    height: 40
+  spacing:
+    horizontal: 2
+    vertical: 2
+  insets:
+    top: 4
+    bottom: 4
+    left: 4
+    right: 4
+  backgroundStyle: gridPanelBackgroundStyle
+  selectedBackgroundStyle: gridPanelSelectedStyle
+  symbolRows:
+  - - zV0Style
+    - zV1Style
+    - zV2Style
+yV0Style:
+  foregroundStyle: yV0Fg
+  action:
+    symbol: ý
+yV0Fg:
+  buttonStyleType: text
+  text: ý
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+yV1Style:
+  foregroundStyle: yV1Fg
+  action:
+    symbol: ÿ
+yV1Fg:
+  buttonStyleType: text
+  text: ÿ
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+yVarGrid:
+  size:
+    width: 40
+    height: 40
+  spacing:
+    horizontal: 2
+    vertical: 2
+  insets:
+    top: 4
+    bottom: 4
+    left: 4
+    right: 4
+  backgroundStyle: gridPanelBackgroundStyle
+  selectedBackgroundStyle: gridPanelSelectedStyle
+  symbolRows:
+  - - yV0Style
+    - yV1Style
+lV0Style:
+  foregroundStyle: lV0Fg
+  action:
+    symbol: ł
+lV0Fg:
+  buttonStyleType: text
+  text: ł
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+lVarGrid:
+  size:
+    width: 40
+    height: 40
+  spacing:
+    horizontal: 2
+    vertical: 2
+  insets:
+    top: 4
+    bottom: 4
+    left: 4
+    right: 4
+  backgroundStyle: gridPanelBackgroundStyle
+  selectedBackgroundStyle: gridPanelSelectedStyle
+  symbolRows:
+  - - lV0Style
+rV0Style:
+  foregroundStyle: rV0Fg
+  action:
+    symbol: ř
+rV0Fg:
+  buttonStyleType: text
+  text: ř
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+rVarGrid:
+  size:
+    width: 40
+    height: 40
+  spacing:
+    horizontal: 2
+    vertical: 2
+  insets:
+    top: 4
+    bottom: 4
+    left: 4
+    right: 4
+  backgroundStyle: gridPanelBackgroundStyle
+  selectedBackgroundStyle: gridPanelSelectedStyle
+  symbolRows:
+  - - rV0Style
+gV0Style:
+  foregroundStyle: gV0Fg
+  action:
+    symbol: ğ
+gV0Fg:
+  buttonStyleType: text
+  text: ğ
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+gVarGrid:
+  size:
+    width: 40
+    height: 40
+  spacing:
+    horizontal: 2
+    vertical: 2
+  insets:
+    top: 4
+    bottom: 4
+    left: 4
+    right: 4
+  backgroundStyle: gridPanelBackgroundStyle
+  selectedBackgroundStyle: gridPanelSelectedStyle
+  symbolRows:
+  - - gV0Style
+dV0Style:
+  foregroundStyle: dV0Fg
+  action:
+    symbol: ď
+dV0Fg:
+  buttonStyleType: text
+  text: ď
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+dVarGrid:
+  size:
+    width: 40
+    height: 40
+  spacing:
+    horizontal: 2
+    vertical: 2
+  insets:
+    top: 4
+    bottom: 4
+    left: 4
+    right: 4
+  backgroundStyle: gridPanelBackgroundStyle
+  selectedBackgroundStyle: gridPanelSelectedStyle
+  symbolRows:
+  - - dV0Style
+tV0Style:
+  foregroundStyle: tV0Fg
+  action:
+    symbol: ť
+tV0Fg:
+  buttonStyleType: text
+  text: ť
+  normalColor: '#FFFFFF'
+  highlightColor: '#FFFFFF'
+  fontSize: 16
+tVarGrid:
+  size:
+    width: 40
+    height: 40
+  spacing:
+    horizontal: 2
+    vertical: 2
+  insets:
+    top: 4
+    bottom: 4
+    left: 4
+    right: 4
+  backgroundStyle: gridPanelBackgroundStyle
+  selectedBackgroundStyle: gridPanelSelectedStyle
+  symbolRows:
+  - - tV0Style
