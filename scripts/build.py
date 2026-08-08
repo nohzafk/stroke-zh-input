@@ -9,9 +9,9 @@
 
 产物 (build/):
   - stroke_zh_base.dict.yaml        单字码表 (官方全量, 频次改用 jieba 单字频次)
-  - stroke_zh_phrase.dict.yaml      词组码表 (词 -> 每字笔画序拼接, 带频次)
-  - stroke_zh.dict.yaml             主码表 (import 以上两者)
-  - stroke_zh.schema.yaml           方案配置 (五笔画 + 前缀联想 + 用户词典学习)
+  - stroke_zh_phrase.dict.yaml      词组码表 (雾凇词库, 每字前4笔拼接, 带频次)
+  - stroke_zh.dict.yaml             主码表 (import 单字+词组)
+  - stroke_zh.schema.yaml           方案配置 (单 translator + single_char_filter 单字优先分流)
   - stroke_zh.zip                   元书输入法可直接导入的打包 (dist/)
 
 用法: python3 scripts/build.py
@@ -298,8 +298,9 @@ def main():
             skipped["rare_chars"] += 1
             continue
         # 词组编码: 每字前4笔拼接 (统一规则: 2字词=8笔, 3字词=12笔, ...)
+        # 与用户习惯(每字打4笔)一致; 8笔码槽位 5^8≈39万 ≈ 词组数, 撞码极少.
         # 只保留简码, 不保留全码 (全码太长无人打, 且前缀联想时同一词会重复占位).
-        # 大词库编码槽位: 8笔码 5^8≈39万 ≈ 词组数, 撞码极少 → 词组走精确匹配 (见 schema).
+        # 单字/词组分流交给 schema 的 single_char_filter (单字优先, 见 schema).
         short = "".join(
             next(c for c in char_map[ch] if set(c) <= VALID_CODE_CHARS)[:4] for ch in word
         )
@@ -321,8 +322,10 @@ def main():
         f.write('version: "1.0.0"\n')
         f.write("sort: by_weight\n")
         f.write("import_tables:\n")
-        f.write("  - stroke_zh_base\n")   # 单字表; 词组独立成 stroke_zh_phrase (schema 精确匹配)
-        # 自动造词: 上屏未收录词时按规则生成编码 (每字前4笔, 与简码规则一致)
+        f.write("  - stroke_zh_base\n")    # 单字表
+        f.write("  - stroke_zh_phrase\n")  # 词组表 (必须 import: librime 部署只编译 import 链,
+                                           # 独立 translator 词典不会被编译 → 词组会消失)
+        # 自动造词: 上屏未收录词时按规则生成编码 (每字前4笔, 与词组编码规则一致)
         f.write("encoder:\n")
         f.write("  rules:\n")
         f.write("    - length_equal: 2\n")
@@ -338,17 +341,17 @@ def main():
     schema = f"""# Rime schema: {SCHEMA_ID}
 # encoding: utf-8
 #
-# 笔画·增强: 五笔画 (横竖撇捺折) + 单字前缀联想 + 词组精确匹配
+# 笔画·增强: 五笔画 (横竖撇捺折) + 单字前缀联想 + 词组编码(每字4笔)
 # 键位: h=s横 s=竖 p=撇 n=捺 z=折 (兼容 Mac 笔画排位 j/k/l/u/i)
-# 基于官方 rime-stroke 码表 + jieba 词库词组表生成, 纯离线.
+# 基于官方 rime-stroke 码表 + 雾凇词库词组表生成, 纯离线.
 # 由 scripts/build.py 自动生成, 勿手改; 想调整去改脚本.
 
 schema:
   schema_id: {SCHEMA_ID}
   name: "{SCHEMA_NAME}"
-  version: "1.1.0"
+  version: "1.2.0"
   description: |
-    五筆畫 (橫豎撇捺折) + 單字聯想 + 詞組精確匹配
+    五筆畫 (橫豎撇捺折) + 單字聯想 + 詞組(每字4筆)
     h,s,p,n,z = 橫、豎、撇、捺、折
 
 switches:
@@ -384,8 +387,13 @@ engine:
     - predict_translator
     - reverse_lookup_translator
     - punct_translator
-    - table_translator                 # 单字: 前缀联想 (打3笔出常用字)
-    - table_translator@stroke_phrase   # 词组: 精确匹配 (打满编码才出现, 前缀阶段零干扰)
+    - table_translator
+  filters:
+    # single_char_filter: 单字优先重排 (librime 内置) → 打1~7笔候选全是单字, 词组排后;
+    #                     打满8/12/16笔(每字4笔)词组精确出现. 单字/词组天然分流, 无前缀污染.
+    # uniquifier: 去重 (同一词不会因全码/简码/用户词典重复占位)
+    - single_char_filter
+    - uniquifier
 
 predictor:
   # 上屏后预测下一个词 (librime-predict 插件, 元书需编译支持)
@@ -403,7 +411,7 @@ menu:
 
 translator:
   dictionary: {SCHEMA_ID}
-  enable_completion: true     # 单字前缀联想: 打3笔即出常用字
+  enable_completion: true     # 前缀联想: 打几笔即出候选
   enable_user_dict: true      # 用户词典学习: 常用字/词自动前置
   enable_encoder: true        # 自动造词: 打词表没有的词(每字前4笔)上屏后自动收录进用户词典
   encode_commit_history: true # 造词时参考上屏上下文
@@ -413,21 +421,6 @@ translator:
   comment_format:
     - xform/~//
     - xlit/hspnz/一丨丿丶𠃍/   # 候选词的剩余编码也显示笔画符号
-
-# 词组专用 translator: 精确匹配, 不参与前缀竞争 (单字/词组彻底分流)
-# 效果: 打1~7笔候选全是单字 (常用字3笔即上屏); 打满 2字词8笔/3字词12笔... 才出词组.
-# 用户词典里学到的词组 (自动造词) 走主 translator 仍可前缀联想.
-stroke_phrase:
-  dictionary: stroke_zh_phrase
-  enable_completion: false     # 精确匹配: 不打满编码不出现 → 不挤占单字候选
-  enable_user_dict: true       # 词组词频学习 (常用词组自动前置)
-  enable_encoder: false
-  max_phrase_length: {PHRASE_MAX_LEN}
-  preedit_format:
-    - xlit/hspnz/一丨丿丶𠃍/
-  comment_format:
-    - xform/~//
-    - xlit/hspnz/一丨丿丶𠃍/
 
 punctuator:
   import_preset: default

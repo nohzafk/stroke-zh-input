@@ -45,6 +45,7 @@
 | 2.0.0 | predict.db 换雾凇词库二元组（8.3 万条，词频≥50） |
 | 优化 | 连续预测 3 轮、9 候选（max_iterations 3 / max_candidates 9） |
 | 优化 | predict.db 重建：**GB2312 过滤**（候选无生僻字，62188 条） |
+| **v1.2.0** | **predict.db 重建为纯后缀 value**（词「下一页」→ key=下 value=一页；8.3 万条→66.9 万条，MIN_FREQ 100）——修复预测点击重复（下→下面→「下下面」根因：08-07 版 value 存完整词，点击上屏整词拼接） |
 
 详见 docs/PREDICT.md
 
@@ -136,6 +137,6 @@
 |---|---|
 | `scripts/build.py` | 构建 RIME 方案（数据源→yaml→zip） |
 | `scripts/validate.py` | 离线校验（dict 头部闭合/编码合法/Cell 引用） |
-| `scripts/make_predict_data.py` | 生成预测数据（GB2312 过滤） |
+| `scripts/make_predict_data_ice.py` | 生成预测数据（雾凇词库，**纯后缀 value**，GB2312 过滤） |
 
 **开发规范**：Python 文件用 `ty` 类型检查；外部依赖用 uv 单文件语法。

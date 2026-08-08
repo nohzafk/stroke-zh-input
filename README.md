@@ -53,7 +53,7 @@
 
 ```
 rime-stroke-zh/
-├── scripts/          build.py（方案构建）/ validate.py（校验）/ build_pinyin.py（拼音方案）/ make_predict_data.py（预测数据）
+├── scripts/          build.py（方案构建）/ validate.py（校验）/ build_pinyin.py（拼音方案）/ make_predict_data_ice.py（预测数据，雾凇后缀版）
 ├── data/             hzbishun_13000.csv（笔顺）/ rime_ice_base.dict.yaml（雾凇词组）/ rime_ice_8105.dict.yaml（拼音单字）/ jieba_dict.txt（单字频次）/ guifan8105.txt（字表）
 ├── cskin/            元书皮肤源（config + dark/light 布局）
 ├── predict.db        预测库
@@ -67,7 +67,9 @@ rime-stroke-zh/
 python3 scripts/build.py           # 笔画方案（build/*.yaml）
 python3 scripts/build_pinyin.py    # 拼音方案
 python3 scripts/validate.py        # 离线校验（模拟 librime 解析）
-# predict.db 需手动加回 zip（构建只生成 yaml）
+python3 scripts/make_predict_data_ice.py > predict_data.txt   # 预测数据（雾凇后缀版）
+# Mac 端: build_predict predict.db < predict_data.txt   # 编译 predict.db（需要 librime 动态库）
+# 打包: zip 含 build/*.yaml + predict.db
 ```
 
 ## 文档

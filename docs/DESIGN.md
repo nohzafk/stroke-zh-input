@@ -1,7 +1,7 @@
-# 笔画·增强 (stroke_zh) 方案设计 v1.1
+# 笔画·增强 (stroke_zh) 方案设计 v1.2
 
 > 本文档记录方案的完整设计：目标、历史问题、调研结论（Google Gemini）、最终方案（含对调研建议的修改与理由）、验证结果。
-> 最后更新：2026-08-08（v1.1.0 单字/词组彻底分流）
+> 最后更新：2026-08-08（v1.2.0 single_char_filter 单字优先分流）
 
 ---
 
@@ -50,7 +50,7 @@ v1.0 = 单字 7953 + 雾凇词组 62 万（624,381 条词条 = 每词全码 + 4 
 | 词组出现门槛 | ≥4 笔可参选 | **打满编码才出现**（二字词 = 8 笔） | 8 笔是词组最短码；配合 `enable_completion: false` 自然实现「禁飞区」 |
 | 一/二/三级简码表 | 显式分配 5/25/125 槽位 | **不建表** | 前缀联想 + 字频排序天然等价（打 1 笔 = 最高频起笔字；打 3 笔 = 同前缀最高频字），零维护 |
 | 词组全码 | 未提及 | **删除**（只留简码） | 全码太长无人打，且前缀阶段与简码重复占位 |
-| Lua 过滤器 | 兜底保障 | **不用** | 双 translator 分流已彻底解决；元书对 Lua 支持不确定，保持简单可靠 |
+| Lua 过滤器 | 兜底保障 | **不用** | `single_char_filter`（librime 内置 filter，1.8.5 自带）单字优先重排已彻底解决；元书对 Lua 支持不确定，保持简单可靠 |
 | 用户词典词组 | — | 学到的词组走主 translator，**仍可前缀联想** | 自动造词 encoder 公式与词组编码同规则（每字前 4 笔），见 4.4 |
 
 ### 4.2 数据层（构建产物）
@@ -59,11 +59,13 @@ v1.0 = 单字 7953 + 雾凇词组 62 万（624,381 条词条 = 每词全码 + 4 
 |---|---|---|
 | `stroke_zh_base.dict.yaml` | 单字 **7,953**（GB2312 6763 + 通用规范表 8105 基本区增量 1190，过滤 273 个扩展区字防乱码） | jieba 单字频次；55 个高频无搭配字 ×100 |
 | `stroke_zh_phrase.dict.yaml` | 词组 **314,153**（雾凇 54 万词，词频 ≥50 过滤，GB2312 字过滤） | 雾凇词频 ×10 |
-| `stroke_zh.dict.yaml` | 主表：**仅 import base** + encoder 规则 | — |
+| `stroke_zh.dict.yaml` | 主表：**import base + phrase** + encoder 规则 | — |
 
 词组条目从 624,381 → 314,153（去全码，文件 20.3MB → 8.7MB，zip 7.1MB → 4.6MB）。
 
-### 4.3 方案层（schema：双 translator 分流）
+> **词组必须 import 进主表**：librime 部署时 `SchemaUpdate::Run` 只编译顶层 `translator/dictionary` 指向的词典。v1.1 曾把词组拆成独立 translator 的独立词典（stroke_zh_phrase），部署不编译它 → 运行时词组表不存在 → 词组完全打不出。v1.0 词组能打正因为词组在 `import_tables` 里（编译链完整）。
+
+### 4.3 方案层（schema：单 translator + single_char_filter 分流）
 
 ```yaml
 engine:
@@ -71,13 +73,15 @@ engine:
     - predict_translator
     - reverse_lookup_translator
     - punct_translator
-    - table_translator                # 单字: enable_completion: true
-    - table_translator@stroke_phrase  # 词组: enable_completion: false
+    - table_translator   # 单字 + 词组同一词典 (import_tables: base + phrase)
+  filters:
+    - single_char_filter   # 单字优先重排 (librime 内置)
+    - uniquifier           # 去重
 ```
 
-- **主 translator**（`stroke_zh`，仅单字表）：前缀联想 + 用户词典 + 自动造词（encoder）
-- **词组 translator**（`stroke_zh_phrase`）：精确匹配 + 词组用户词典（常用词组自动前置），`enable_encoder: false`
-- **效果**：打 1~7 笔候选 100% 单字；打满 8/12/16/20/24 笔（2/3/4/5/6 字词）精确出词组
+- **单 translator**：单字、词组同一词典（import 链完整 → librime 部署编译词组表，词组能打）
+- **single_char_filter**：候选按「单字优先」重排 → 打 1~7 笔**第一页全是单字**，词组排后；打满 8/12/16/20/24 笔（2/3/4/5/6 字词）词组精确出现
+- **效果**：与 v1.1 双 translator 同等的「单字/词组彻底分流」体验，但架构简单可靠（无独立词典编译问题）
 
 ### 4.4 编码规则
 
@@ -92,37 +96,49 @@ engine:
 
 1. **静态字频**：单字 = jieba 单字频次；词组 = 雾凇词频 ×10（量级平衡）
 2. **高频字加成**：55 个常用但少组词的字（的/有/个/是/在/了/我/你/他…）×100，打前几笔即靠前
-3. **动态调频**：主 translator 与词组 translator 都开 `enable_user_dict`——用户选过的字/词自动前置，越用越顺手
+3. **动态调频**：translator 开 `enable_user_dict`——用户选过的字/词自动前置，越用越顺手
 
 ## 5. 验证结果（离线模拟，2026-08-08）
 
-### 5.1 单字 3 笔第一页命中（47/47）
+### 5.1 单字 3 笔第一页命中（37/37）
 
-打 3 笔（编码前 3 笔）时，47 个常用字**全部第一页（≤9）**，代表字：
+打 3 笔（编码前 3 笔）时，37 个常用字**全部第一页（≤9）**，代表字：
 
 | 字 | 编码 | 3 笔前缀 | 排名 | | 字 | 编码 | 3 笔前缀 | 排名 |
 |---|---|---|---|---|---|---|---|---|
-| 我 | phshzpn | phs | #2 | | 子 | zsh | zsh | **#1**（原 #35） |
-| 你 | pspzspn | psp | #1 | | 天 | hhpn | hhp | **#1**（原 #57） |
-| 这 | nhpnnzn | nhp | #1 | | 真 | hsszhhhpn | hss | **#1**（原 #179） |
-| 的 | pszhhpzn | psz | #2 | | 太 | hpnn | hpn | #2（原 #61） |
+| 我 | phshzpn | phs | #1 | | 子 | zsh | zsh | **#1** |
+| 你 | pspzspn | psp | #1 | | 天 | hhpn | hhp | **#1** |
+| 这 | nhpnnzn | nhp | #1 | | 真 | hsszhhhpn | hss | **#1** |
+| 的 | pszhhpzn | psz | #1 | | 太 | hpnn | hpn | #2 |
 | 在 | hpshsh | hps | #1 | | 最 | szhhhsshhn | szh | #7 |
 | 是 | szhhhshpn | szh | #1 | | 里 | szhhshh | szh | #6 |
 
-「我」排 #2（「和」#1）为字频排序的正常结果；用户词典学习后会自动前置。
-
-### 5.2 词组 8 笔精确匹配
+### 5.2 词组 8 笔精确匹配（21/21）
 
 | 词 | 8 笔码 | 同码数 | 排名 |
 |---|---|---|---|
 | 我们 | phshpsns | 1 | #1 |
 | 他们 | pszspsns | 1 | #1 |
 | 中国 | szhsszhh | 88 | #1 |
-| 人民 | pnzhzh | 1 | #1 |
-| 可以 | hszhznpn | 4 | #1 |
-| 什么 | pshspzn | 2 | #1 |
+| 磁盘 | hpszppzn | — | #2 |
+| 空间 | nnzpnszs | — | #2 |
+| 问题 | nszsszhh | — | #1 |
 
-### 5.3 静态校验
+### 5.3 预测（predict.db 纯后缀）
+
+predict.db 由 `scripts/make_predict_data_ice.py`（雾凇词库）生成，value 为**纯后缀**（词「下一页」→ key=下 value=一页；key=下一 value=页）。librime-predict 候选为 0 宽度后缀，点击只上屏后缀 → 上屏「下」+ 点击「面」=「下面」，不重复。
+
+> **v1.2 教训**：08-07 曾把 predict.db 的 value 改成「完整词」（下 → 下面/下载/下午），点击上屏整词 → 与已上屏字拼接 → 「下下面」。验证必须直接查 dist 里实际打包的 db（写 Darts + marisa 解析器），不能只看生成脚本。
+
+### 5.4 用户实测（2026-08-08，元书输入法）
+
+| 测试 | 结果 |
+|---|---|
+| 词组每字 4 笔打满 8 笔（磁盘/空间/我们/问题） | ✅ 正常出词 |
+| 单字 3 笔（真/天/子/我） | ✅ 第一页 |
+| 预测点击（下 → 面 → 下面） | ✅ 不再重复 |
+
+### 5.5 静态校验
 
 `validate.py` 全过：dict 头部闭合、314,153 条编码全部合法（仅 hspnz）、schema/皮肤 YAML 正常。
 
@@ -137,7 +153,8 @@ engine:
 | 版本 | 内容 |
 |---|---|
 | 1.0.0 | 单字 7953 + 雾凇词组（全码 + 4 笔简码并存，前缀联想） |
-| **1.1.0** | **单字/词组彻底分流**：词组只留 4 笔简码；双 translator（单字前缀联想 + 词组精确匹配）；常用单字 3 笔即上屏 |
+| 1.1.0 | ~~双 translator 分流~~（废弃）：词组拆独立 translator 词典，librime 部署只编译顶层 translator 词典 → 词组表不编译 → 词组完全打不出 |
+| **1.2.0** | **single_char_filter 单字优先分流**：词组回主表 import（编译链完整）；单 translator + single_char_filter；词组每字前 4 笔；predict.db 重建为纯后缀 value（修复预测点击重复） |
 
 ---
 

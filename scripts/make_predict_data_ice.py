@@ -1,17 +1,21 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""生成 librime-predict 预测数据 (key\tvalue\tweight) — GB2312 常用字过滤版.
-逻辑复刻 librime-predict/tools/make_predict_data:
-  - 词 "你好" → key="你" value="好"
-  - 词 "你好吗" → key="你" value="好吗"; key="你好" value="吗"
+"""生成 librime-predict 预测数据 (key\tvalue\tweight) — 雾凇词库版, GB2312 过滤.
+
+逻辑 (与 2026-08-06 jieba 版一致, 后缀拆分 — 重要!):
+  - 词 "下面" → key="下" value="面"
+  - 词 "下一页" → key="下" value="一页"; key="下一" value="页"
   - 高频单字作句子开始: key="$" value=字
-过滤: 只保留 GB2312 常用字词 (predict 候选干净, 无生僻字)
-输出: stdout, 供 Mac 端 build_predict 生成 predict.db
+librime-predict 候选为 0 宽度后缀, 点击只上屏后缀 → "下"+"面"="下面" 不重复.
+
+数据源: rime_ice_base.dict.yaml (雾凇基础词库, 格式: 词\\t编码\\t词频)
+用法: python3 make_predict_data_ice.py > predict_data_ice.txt
+      (Mac 端) build_predict predict.db < predict_data_ice.txt
 """
 import sys
 
-
 def load_common_chars():
+    """GB2312 全部 6763 汉字 (PingFang SC 可显示, 预测候选干净)."""
     chars = []
     for hi in range(0xB0, 0xD8):
         for lo in range(0xA1, 0xFF):
@@ -33,9 +37,9 @@ def load_common_chars():
 
 
 COMMON = load_common_chars()
-MIN_FREQ = 50       # 参与预测的词最低词频 (过滤罕见词)
-MAX_WORD_LEN = 4    # 参与拆分的词最大长度
-JIEBA = "/var/minis/shared/rime-stroke-zh/data/jieba_dict.txt"
+MIN_FREQ = 100       # 参与预测的词最低词频 (雾凇词频体系)
+MAX_WORD_LEN = 4     # 参与拆分的词最大长度
+ICE = "data/rime_ice_base.dict.yaml"   # 雾凇基础词库
 
 
 def main() -> int:
@@ -48,22 +52,22 @@ def main() -> int:
 
     # 句子开始预测: 高频单字 (GB2312)
     single_freq: dict[str, int] = {}
-    for line in open(JIEBA, encoding="utf-8-sig"):
-        parts = line.rstrip("\n").split()
-        if len(parts) >= 2 and len(parts[0]) == 1 and parts[0] in COMMON:
+    for line in open(ICE, encoding="utf-8"):
+        parts = line.rstrip("\n").split("\t")
+        if len(parts) >= 3 and len(parts[0]) == 1 and parts[0] in COMMON:
             try:
-                single_freq[parts[0]] = max(single_freq.get(parts[0], 0), int(parts[1]))
+                single_freq[parts[0]] = max(single_freq.get(parts[0], 0), int(parts[2]))
             except ValueError:
                 pass
     for ch, w in sorted(single_freq.items(), key=lambda x: -x[1])[:100]:
         add("$", ch, w)
 
-    # 词 → bigram (GB2312 词)
-    for line in open(JIEBA, encoding="utf-8-sig"):
-        parts = line.rstrip("\n").split()
-        if len(parts) < 2:
+    # 词 → 后缀拆分 (GB2312 词)
+    for line in open(ICE, encoding="utf-8"):
+        parts = line.rstrip("\n").split("\t")
+        if len(parts) < 3:
             continue
-        word, w_str = parts[0], parts[1]
+        word, w_str = parts[0], parts[2]
         try:
             w = int(w_str)
         except ValueError:
