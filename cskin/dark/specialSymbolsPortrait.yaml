@@ -1,0 +1,742 @@
+alphabeticButtonBackgroundStyle:
+  buttonStyleType: geometry
+  cornerRadius: 8.5
+  highlightColor: '#4C4C4C'
+  highlightLowerEdgeColor: '#000000'
+  insets:
+    bottom: 3
+    left: 3
+    right: 3
+    top: 3
+  normalColor: '#707070'
+  normalLowerEdgeColor: '#000000'
+alphabeticHintBackgroundStyle:
+  borderSize: 0.5
+  buttonStyleType: geometry
+  cornerRadius: 10
+  normalBorderColor: '#69686A'
+  normalColor: '#707070'
+backspaceButton:
+  action: backspace
+  backgroundStyle: systemButtonBackgroundStyle
+  foregroundStyle: backspaceButtonForegroundStyle
+  repeatAction: backspace
+backspaceButtonForegroundStyle:
+  buttonStyleType: systemImage
+  fontSize: 20
+  highlightColor: '#FFFFFF'
+  highlightSystemImageName: delete.left.fill
+  normalColor: '#FFFFFF'
+  systemImageName: delete.left
+blueButtonBackgroundStyle:
+  buttonStyleType: geometry
+  cornerRadius: 8.5
+  highlightColor: '#707070'
+  highlightLowerEdgeColor: '#000000'
+  insets:
+    bottom: 3
+    left: 3
+    right: 3
+    top: 3
+  normalColor: '#0A84FF'
+  normalLowerEdgeColor: '#000000'
+blueButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 16
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: $returnKeyType
+buttonStyleType: text
+candidateContextMenu: []
+commitCandidateForegroundStyle:
+  buttonStyleType: text
+  fontSize: 16
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: 选定
+enterButton:
+  action: enter
+  backgroundStyle:
+  - conditionKey: $returnKeyType
+    conditionValue:
+    - 0
+    - 2
+    - 3
+    - 5
+    - 6
+    - 8
+    - 11
+    styleName: systemButtonBackgroundStyle
+  - conditionKey: $returnKeyType
+    conditionValue:
+    - 1
+    - 4
+    - 7
+    - 9
+    - 10
+    styleName: blueButtonBackgroundStyle
+  foregroundStyle:
+  - conditionKey: $returnKeyType
+    conditionValue:
+    - 0
+    - 2
+    - 3
+    - 5
+    - 6
+    - 8
+    - 11
+    styleName: enterButtonForegroundStyle
+  - conditionKey: $returnKeyType
+    conditionValue:
+    - 1
+    - 4
+    - 7
+    - 9
+    - 10
+    styleName: blueButtonForegroundStyle
+  notification:
+  - returnKeyTypeChangedNotification
+  - preeditChangedForEnterButtonNotification
+  swipeUpAction:
+    symbol: "\r\n"
+  size:
+    width:
+      percentage: 0.17
+
+enterButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 12
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: $returnKeyType
+expandButton:
+  action:
+    shortcut: '#candidatesBarStateToggle'
+  foregroundStyle: expandButtonForegroundStyle
+  size:
+    width: 44
+expandButtonForegroundStyle:
+  buttonStyleType: systemImage
+  fontSize: 20
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  systemImageName: chevron.forward
+fontSize: 26
+horizontalCandidateStyle:
+  commentColor: '#FFFFFF'
+  commentFontSize: 14
+  highlightBackgroundColor: '#707070'
+  indexColor: '#FFFFFF'
+  indexFontSize: 12
+  preferredBackgroundColor: '#707070'
+  preferredCommentColor: '#FFFFFF'
+  preferredIndexColor: '#FFFFFF'
+  preferredTextColor: '#FFFFFF'
+  textColor: '#FFFFFF'
+  textFontSize: 16
+horizontalCandidates:
+  candidateStyle: horizontalCandidateStyle
+  type: horizontalCandidates
+horizontalCandidatesLayout:
+- HStack:
+    subviews:
+    - Cell: horizontalCandidates
+    - Cell: expandButton
+horizontalCandidatesStyle:
+  backgroundStyle: keyboardBackgroundStyle
+  insets:
+    bottom: 1
+    left: 3
+    top: 8
+keyboardBackgroundStyle:
+  buttonStyleType: geometry
+  normalColor: '#00000003'
+keyboardHeight: 216
+keyboardStyle:
+  backgroundStyle: keyboardBackgroundStyle
+normalColor: '#FFFFFF'
+preeditChangedForEnterButtonNotification:
+  backgroundStyle:
+  - conditionKey: $returnKeyType
+    conditionValue:
+    - 0
+    - 2
+    - 3
+    - 5
+    - 6
+    - 8
+    - 11
+    styleName: systemButtonBackgroundStyle
+  - conditionKey: $returnKeyType
+    conditionValue:
+    - 1
+    - 4
+    - 7
+    - 9
+    - 10
+    styleName: blueButtonBackgroundStyle
+  foregroundStyle:
+  - conditionKey: $returnKeyType
+    conditionValue:
+    - 0
+    - 2
+    - 3
+    - 5
+    - 6
+    - 8
+    - 11
+    styleName: enterButtonForegroundStyle
+  - conditionKey: $returnKeyType
+    conditionValue:
+    - 1
+    - 4
+    - 7
+    - 9
+    - 10
+    styleName: blueButtonForegroundStyle
+  notificationType: preeditChanged
+preeditChangedForSpaceButtonNotification:
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: commitCandidateForegroundStyle
+  notificationType: preeditChanged
+preeditForegroundStyle:
+  buttonStyleType: text
+  fontSize: 17
+  normalColor: '#FFFFFF'
+preeditHeight: 25
+preeditStyle:
+  backgroundStyle: keyboardBackgroundStyle
+  foregroundStyle: preeditForegroundStyle
+  insets:
+    left: 4
+    top: 2
+returnKeyTypeChangedNotification:
+  backgroundStyle: blueButtonBackgroundStyle
+  foregroundStyle: blueButtonForegroundStyle
+  notificationType: returnKeyType
+  returnKeyType:
+  - 1
+  - 4
+  - 7
+returnLastKeyboardButton:
+  action: returnLastKeyboard
+  backgroundStyle: systemButtonBackgroundStyle
+  foregroundStyle: returnLastKeyboardButtonForegroundStyle
+  size:
+    width:
+      percentage: 0.17
+
+returnLastKeyboardButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 16
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: 返回
+spaceButton:
+  action: space
+  backgroundStyle: systemButtonBackgroundStyle
+  foregroundStyle: spaceButtonForegroundStyle
+  notification:
+  - preeditChangedForSpaceButtonNotification
+  swipeUpAction:
+    shortcut: '#次选上屏'
+spaceButtonForegroundStyle:
+  buttonStyleType: systemImage
+  fontSize: 20
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  systemImageName: space
+systemButtonBackgroundStyle:
+  buttonStyleType: geometry
+  cornerRadius: 8.5
+  highlightColor: '#707070'
+  highlightLowerEdgeColor: '#000000'
+  insets:
+    bottom: 3
+    left: 3
+    right: 3
+    top: 3
+  normalColor: '#4C4C4C'
+  normalLowerEdgeColor: '#000000'
+toolbarHeight: 40
+toolbarLayout: {}
+toolbarStyle:
+  backgroundStyle: keyboardBackgroundStyle
+verticalBackspaceButtonStyle:
+  action: backspace
+  backgroundStyle: systemButtonBackgroundStyle
+  foregroundStyle: verticalBackspaceButtonStyleForegroundStyle
+verticalBackspaceButtonStyleForegroundStyle:
+  buttonStyleType: systemImage
+  fontSize: 20
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  systemImageName: delete.left
+verticalCandidateStyle:
+  commentColor: '#FFFFFF'
+  commentFontSize: 14
+  highlightBackgroundColor: '#707070'
+  indexColor: '#FFFFFF'
+  indexFontSize: 12
+  insets:
+    bottom: 4
+    left: 6
+    right: 6
+    top: 4
+  preferredBackgroundColor: '#707070'
+  preferredCommentColor: '#FFFFFF'
+  preferredIndexColor: '#FFFFFF'
+  preferredTextColor: '#FFFFFF'
+  textColor: '#FFFFFF'
+  textFontSize: 16
+verticalCandidates:
+  candidateStyle: verticalCandidateStyle
+  insets:
+    bottom: 8
+    left: 8
+    right: 8
+    top: 8
+  maxColumns: 6
+  maxRows: 5
+  separatorColor: '#38383A'
+  type: verticalCandidates
+verticalCandidatesLayout:
+- HStack:
+    subviews:
+    - Cell: verticalCandidates
+- HStack:
+    style: verticalLastRowStyle
+    subviews:
+    - Cell: verticalPageUpButtonStyle
+    - Cell: verticalPageDownButtonStyle
+    - Cell: verticalReturnButtonStyle
+    - Cell: verticalBackspaceButtonStyle
+verticalCandidatesStyle:
+  backgroundStyle: keyboardBackgroundStyle
+verticalLastRowStyle:
+  size:
+    height: 45
+verticalPageDownButtonStyle:
+  action:
+    shortcut: '#verticalCandidatesPageDown'
+  backgroundStyle: systemButtonBackgroundStyle
+  foregroundStyle: verticalPageDownButtonStyleForegroundStyle
+verticalPageDownButtonStyleForegroundStyle:
+  buttonStyleType: systemImage
+  fontSize: 20
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  systemImageName: chevron.down
+verticalPageUpButtonStyle:
+  action:
+    shortcut: '#verticalCandidatesPageUp'
+  backgroundStyle: systemButtonBackgroundStyle
+  foregroundStyle: verticalPageUpButtonStyleForegroundStyle
+verticalPageUpButtonStyleForegroundStyle:
+  buttonStyleType: systemImage
+  fontSize: 20
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  systemImageName: chevron.up
+verticalReturnButtonStyle:
+  action:
+    shortcut: '#candidatesBarStateToggle'
+  backgroundStyle: systemButtonBackgroundStyle
+  foregroundStyle: verticalReturnButtonStyleForegroundStyle
+verticalReturnButtonStyleForegroundStyle:
+  buttonStyleType: systemImage
+  fontSize: 20
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  systemImageName: return
+numericButton:
+  action:
+    keyboardType: numeric
+  backgroundStyle: systemButtonBackgroundStyle
+  foregroundStyle: numericButtonForegroundStyle
+  size:
+    width:
+      percentage: 0.132
+numericButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 16
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: '123'
+moreSymbolsButton:
+  action:
+    keyboardType: specialSymbols
+  backgroundStyle: systemButtonBackgroundStyle
+  foregroundStyle: moreSymbolsButtonForegroundStyle
+  size:
+    width:
+      percentage: 0.132
+moreSymbolsButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 16
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: '更多'
+
+t01Button:
+  action:
+    symbol: "€"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t01ButtonForegroundStyle
+t01ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "€"
+t02Button:
+  action:
+    symbol: "$"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t02ButtonForegroundStyle
+t02ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "$"
+t03Button:
+  action:
+    symbol: "¥"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t03ButtonForegroundStyle
+t03ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "¥"
+t04Button:
+  action:
+    symbol: "×"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t04ButtonForegroundStyle
+t04ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "×"
+t05Button:
+  action:
+    symbol: "÷"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t05ButtonForegroundStyle
+t05ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "÷"
+t06Button:
+  action:
+    symbol: "≠"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t06ButtonForegroundStyle
+t06ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "≠"
+t07Button:
+  action:
+    symbol: "≤"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t07ButtonForegroundStyle
+t07ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "≤"
+t08Button:
+  action:
+    symbol: "≥"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t08ButtonForegroundStyle
+t08ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "≥"
+t09Button:
+  action:
+    symbol: "≈"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t09ButtonForegroundStyle
+t09ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "≈"
+t11Button:
+  action:
+    symbol: "α"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t11ButtonForegroundStyle
+t11ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "α"
+t12Button:
+  action:
+    symbol: "β"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t12ButtonForegroundStyle
+t12ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "β"
+t13Button:
+  action:
+    symbol: "γ"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t13ButtonForegroundStyle
+t13ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "γ"
+t14Button:
+  action:
+    symbol: "δ"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t14ButtonForegroundStyle
+t14ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "δ"
+t15Button:
+  action:
+    symbol: "ε"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t15ButtonForegroundStyle
+t15ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "ε"
+t16Button:
+  action:
+    symbol: "θ"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t16ButtonForegroundStyle
+t16ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "θ"
+t17Button:
+  action:
+    symbol: "λ"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t17ButtonForegroundStyle
+t17ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "λ"
+t18Button:
+  action:
+    symbol: "μ"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t18ButtonForegroundStyle
+t18ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "μ"
+t19Button:
+  action:
+    symbol: "π"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t19ButtonForegroundStyle
+t19ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "π"
+t20Button:
+  action:
+    symbol: "σ"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t20ButtonForegroundStyle
+t20ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "σ"
+t21Button:
+  action:
+    symbol: "→"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t21ButtonForegroundStyle
+t21ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "→"
+t22Button:
+  action:
+    symbol: "←"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t22ButtonForegroundStyle
+t22ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "←"
+t23Button:
+  action:
+    symbol: "↑"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t23ButtonForegroundStyle
+t23ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "↑"
+t24Button:
+  action:
+    symbol: "↓"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t24ButtonForegroundStyle
+t24ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "↓"
+t25Button:
+  action:
+    symbol: "·"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t25ButtonForegroundStyle
+t25ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "·"
+t26Button:
+  action:
+    symbol: "…"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t26ButtonForegroundStyle
+t26ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "…"
+t27Button:
+  action:
+    symbol: "⌘"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t27ButtonForegroundStyle
+t27ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "⌘"
+t28Button:
+  action:
+    symbol: "⌥"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t28ButtonForegroundStyle
+t28ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "⌥"
+t29Button:
+  action:
+    symbol: "⌃"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t29ButtonForegroundStyle
+t29ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "⌃"
+t30Button:
+  action:
+    symbol: "⇧"
+  backgroundStyle: alphabeticButtonBackgroundStyle
+  foregroundStyle: t30ButtonForegroundStyle
+t30ButtonForegroundStyle:
+  buttonStyleType: text
+  fontSize: 22.5
+  highlightColor: '#FFFFFF'
+  normalColor: '#FFFFFF'
+  text: "⇧"
+keyboardLayout:
+  - HStack:
+      subviews:
+      - Cell: t01Button
+      - Cell: t02Button
+      - Cell: t03Button
+      - Cell: t04Button
+      - Cell: t05Button
+      - Cell: t06Button
+      - Cell: t07Button
+      - Cell: t08Button
+      - Cell: t09Button
+      - Cell: backspaceButton
+  - HStack:
+      subviews:
+      - Cell: t11Button
+      - Cell: t12Button
+      - Cell: t13Button
+      - Cell: t14Button
+      - Cell: t15Button
+      - Cell: t16Button
+      - Cell: t17Button
+      - Cell: t18Button
+      - Cell: t19Button
+      - Cell: t20Button
+  - HStack:
+      subviews:
+      - Cell: t21Button
+      - Cell: t22Button
+      - Cell: t23Button
+      - Cell: t24Button
+      - Cell: t25Button
+      - Cell: t26Button
+      - Cell: t27Button
+      - Cell: t28Button
+      - Cell: t29Button
+      - Cell: t30Button
+  - HStack:
+      subviews:
+      - Cell: returnLastKeyboardButton
+      - Cell: numericButton
+      - Cell: spaceButton
+      - Cell: enterButton

@@ -331,12 +331,12 @@ enterButton:
   - preeditChangedForEnterButtonNotification
   size:
     width:
-      percentage: 0.2
+      percentage: 0.17
   swipeUpAction:
     symbol: "\r\n"
 enterButtonForegroundStyle:
   buttonStyleType: text
-  fontSize: 16
+  fontSize: 12
   highlightColor: '#FFFFFF'
   normalColor: '#FFFFFF'
   text: $returnKeyType
@@ -736,11 +736,9 @@ keyboardLayout:
     - Cell: backspaceButton
 - HStack:
     subviews:
-    - Cell: numericButton
-    - Cell: commaButton
-    - Cell: spaceButton
-    - Cell: questionButton
     - Cell: symbolicSwitchButton
+    - Cell: numericButton
+    - Cell: spaceButton
     - Cell: t9PinyinButton
     - Cell: enterButton
 keyboardStyle:
@@ -910,7 +908,7 @@ numericButton:
   foregroundStyle: numericButtonForegroundStyle
   size:
     width:
-      percentage: 0.2
+      percentage: 0.132
 numericButtonForegroundStyle:
   buttonStyleType: text
   fontSize: 16
@@ -1335,7 +1333,7 @@ t9PinyinButton:
   foregroundStyle: t9PinyinButtonForegroundStyle
   size:
     width:
-      percentage: 0.1
+      percentage: 0.132
 t9PinyinButtonForegroundStyle:
   buttonStyleType: text
   text: 中英
@@ -1755,13 +1753,13 @@ symbolicSwitchButton:
   foregroundStyle: symbolicSwitchButtonForegroundStyle
   size:
     width:
-      percentage: 0.1
+      percentage: 0.17
 symbolicSwitchButtonForegroundStyle:
   buttonStyleType: text
   text: '#+='
   normalColor: '#FFFFFF'
   highlightColor: '#FFFFFF'
-  fontSize: 14
+  fontSize: 16
 questionButton:
   action:
     symbol: ？

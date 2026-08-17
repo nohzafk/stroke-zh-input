@@ -12,6 +12,14 @@ numeric:
   iPhone:
     portrait: portraitNumeric
     landscape: landscapeNumeric
+symbolic:
+  iPhone:
+    portrait: symbolicPortrait
+    landscape: symbolicLandscape
+specialSymbols:
+  iPhone:
+    portrait: specialSymbolsPortrait
+    landscape: specialSymbolsLandscape
 t9pinyin:
   iPhone:
     portrait: t9pinyinPortrait
