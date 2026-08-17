@@ -30,17 +30,6 @@ alphabeticHintBackgroundStyle:
   cornerRadius: 10
   normalBorderColor: '#69686A'
   normalColor: '#707070'
-delimiterButton:
-  action:
-    character: "'"
-  backgroundStyle: systemButtonBackgroundStyle
-  foregroundStyle: delimiterButtonForegroundStyle
-delimiterButtonForegroundStyle:
-  buttonStyleType: text
-  fontSize: 18
-  highlightColor: '#FFFFFF'
-  normalColor: '#FFFFFF'
-  text: "'"
 backspaceButton:
   action: backspace
   backgroundStyle: systemButtonBackgroundStyle
@@ -228,10 +217,9 @@ keyboardLayout:
 - VStack:
     style: narrowVStackStyle
     subviews:
-    - Cell: delimiterButton
+    - Cell: backspaceButton
     - Cell: enterButton
     - Cell: pinyinSwitchButton
-    - Cell: backspaceButton
 keyboardStyle:
   backgroundStyle: keyboardBackgroundStyle
 narrowVStackStyle:

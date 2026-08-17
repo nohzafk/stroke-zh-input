@@ -29,22 +29,59 @@ DIST = os.path.join(ROOT, "dist")
 
 PHRASE_MIN_LEN = 2      # 词组最小字数
 PHRASE_MAX_LEN = 4      # 词组最大字数 (5/6 字词要打 20/24 笔, 无实用性, v1.3 起不收)
-PHRASE_MIN_FREQ = 50   # jieba 词频阈值 (控制词组表规模, 调低则词多)
-PHRASE_WEIGHT_FACTOR = 10  # 词组权重系数: jieba 词频与单字频次量级差 2-3 个数量级,
-                            # 乘此系数让常用词组在候选里提前 (否则被单字碾压排后面)
-PHRASE_CODE_STROKES = 4  # 词组每字取前几笔 (词库编码与 encoder 造词公式共用此常量)
-PHRASE_MIN_CODE_LEN = 4  # 词组编码最短笔数: 3 笔以内的「词组」(一人/十一/一一) 一律不收.
-                         # 这类词全由 1-2 笔的字组成, 分开打两个字反而更快, 却要占掉
-                         # 短前缀第一页的精确匹配槽位, 把高频单字挤到第二页 (P0-1 的一种)
+PHRASE_MIN_FREQ = 50   # 词组过滤阈值: 雾凇权重列 (rime_ice_base.dict.yaml 权重, 非 jieba)
+                        # 控制词组表规模, 调低则词多. (历史注释曾写「jieba 词频阈值」,
+                        # 但过滤条件一直是雾凇权重 — 2026-08-17 核对代码后修正注释)
+
+# 词组权重 (v1.4 改造, 2026-08-17):
+#   - 双库词 (jieba 词库也有): 直接用 jieba 词频 — 真实语料频率, 常用词靠前
+#   - 雾凇独有词 (jieba 没有): 保留, 线性缩放到 jieba 量级 (独有词 p50 = 双库词 jieba p50),
+#     不挤压 jieba 常用词; 独有词之间保持原雾凇相对顺序
+#   - 废弃 PHRASE_WEIGHT_FACTOR×10: 单字用字频表 10^5~10^7, 候选排序主键是剩余编码长度,
+#     词组打满编码即剩余 0 必在首位, 同码决胜时 jieba 高频词组仍领先多数单字, 无需放大.
+#     同码竞争例: 「日月」与「明」同码, 字频表单字权重高 → 打「明」8 笔出「明」, 正确.
+PHRASE_CODE_STROKES = 4  # 仅 encoder 公式兜底用 (v1.4 词组编码已改自然码; 造词优先走 stem 列,
+                            # 公式只在 stem 缺失时触发, 实际不生效 — 见 encoder_rules 注释)
+PHRASE_MIN_CODE_LEN = 6  # 词组编码最短笔数. librime 排序主键是剩余编码长度升序:
+                         # 输入 N 笔时, 编码恰好 N 笔的词条精确匹配 (remaining=0) 永远排在
+                         # 全码更长的单字补全候选前 (权重只是次级键). v1.4 自然码 3-5 笔 →
+                         # 2字词最短 6 笔, 4-5 笔词组(一个/一只)会抢占单字 4-5 笔前缀,
+                         # 把或/事/眼 等挤出第一页 (实测 4 笔命中率 98%→94%). v1.3 词组
+                         # 固定 8 笔所以无此问题. 6-7 笔词组权重另行打折 (见词组生成处).
+PHRASE_SHORT_FREQ_THRESHOLD = 10000  # 4-5 笔码高频词组放行阈值 (jieba 词频).
+                         # 「第一」(第4笔+一1笔=5笔码) 等超高频词被排除线误杀 → 放行.
+                         # 阈值 10000 = 22 个日常必打词 (一个/一些/一般/一定/第一/一下/
+                         # 一次/一直/一起/一点…); 低于阈值的不放行 (仍保护单字前缀).
 MAX_CODE_LENGTH = 32    # 编码长度上限 (4字词=16笔, 单字全码最长 13 笔, 留余量)
 
 # ---- 高频字简码 (A1) ----
 # librime 候选排序主键是「剩余编码长度升序」, 不是权重 (dict/dictionary.cc:73-84):
 # 打 3 笔时, 全码 8 笔的常用字只是 remaining=5 的补全候选, 被任何剩余码更短的条目
 # (含大量词组) 压在后面 —— 实测「是」打 szh 排第 9096 位, 真机验证一致.
-# 唯一的解法是把 1/2/3 笔本身作为精确匹配条目写进词库 (= 五笔/郑码/仓颉的一二三级简码).
-SHORTCODE_LEVELS = (1, 2, 3)  # 简码级别: 取该字真实笔顺的前 1/2/3 笔
+# 唯一的解法是把该笔数本身作为精确匹配条目写进词库 (= 五笔/郑码/仓颉的简码).
+#
+# v1.4 (A′): 级别从 (1,2,3) 扩到 (1..7). v1.3 只建到 3 笔, 于是第 4 笔一跨出去就掉回
+# 补全惩罚 —— 字频前 100 字「4 笔进第一页」只有 45%, 比 3 笔的 96% 还差 51 个点
+# (「第」打 phn rank 2, 打 phnp rank 1354; 「和」打偏旁禾 phspn rank 15). 这不是「容忍
+# 不标准笔数」的可选优化, 是「多打一笔反而更差」的设计倒挂: 用户按偏旁部首打字,
+# 偏旁是 2-7 笔, 不是恰好 3 笔. 扩到 7 笔后前 100 字 4 笔 45%→100%、5 笔 63%→98%、
+# 6 笔 78%→100%, 命中率对笔数单调不降, 由 validate.py MULTI_STROKE_FLOOR 锁住.
+# (以上口径 = validate.py 的累计频段 + hit_rate, 跑 validate.py 即可复现.)
+#
+# 为什么是 7 笔封顶: 偏旁本身最多 6-7 笔 (⺮ 6, 金 8 已极少), 再长的前缀落在 5^8 以上的
+# 稀疏码空间里, 补全候选本来就排得进第一页 (6 笔命中率已到 100%), 再扩只是加死条目;
+# 且 8 笔正是二字词组码的长度, 不扩到 8 笔就不会与词组抢同一个精确匹配码.
+# 为什么不用 speller/algebra 的 abbrev (原生缩写机制): algebra 对整个词典生效, 没有按
+# 条目收窄的语法, 而词组码与单字全码在长度上完全重叠 → 30 万词组会全部在 1-4 笔变成
+# 精确匹配 = P0-1 完全复发. 拆词典又会重演 v1.1 (部署只编译顶层 translator 的词典).
+# 实测加词条的 prism 成本与 abbrev 相同 (distinct code 只 +3,884), abbrev 省的只有 table.
+SHORTCODE_LEVELS = (1, 2, 3, 4, 5, 6, 7)  # 简码级别: 取该字真实笔顺的前 1..7 笔
 PAGE_SIZE = 9                 # = schema menu/page_size, 第一页容量
+# 权重剥离的笔数上限. **必须独立于 SHORTCODE_LEVELS**, 不能复用 max(SHORTCODE_LEVELS):
+# 下面那处剥离是把 <=3 笔条目的权重统一压成纯字频 (去掉 HIGH_FREQ_SINGLE_BONUS 的 ×100),
+# 目的是让最挤的 1-3 笔前缀严格按字频排序. 扩到 7 笔后若跟着一起走, 4-7 笔的**全码**
+# 也会被剥离 —— 「我」的全码正好 7 笔且在加成名单里, 权重会掉 100 倍.
+BONUS_STRIP_MAX_LEN = 3
 # 发简码的名额按前缀算, 不按字频前 N 名算: 每个前缀第一页只有 PAGE_SIZE 个位置,
 # 名额给该前缀下字频最高的字 (全码等于该前缀的字先留位, 见 build_shortcodes).
 # 进不了第一页的简码是死条目 (用户不翻页), 所以不发. 这样「szh 前缀有 65 个高频字」
@@ -212,11 +249,13 @@ def load_char_freq(path):
 
 
 def build_shortcodes(char_codes, freq, blocked):
-    """高频字简码 (A1): 给字追加 1/2/3 笔简码条目, 每个前缀发 PAGE_SIZE 个名额.
+    """高频字简码 (A1): 按 SHORTCODE_LEVELS 给字追加简码条目, 每个前缀发 PAGE_SIZE 个名额.
 
-    简码条目让该字在 1/2/3 笔时成为**精确匹配** (剩余码长 0), 按
-    dict/dictionary.cc:78-79 排在所有补全候选之前 —— 这才是「3 笔上屏」的实现手段,
+    简码条目让该字在该笔数上成为**精确匹配** (剩余码长 0), 按
+    dict/dictionary.cc:78-79 排在所有补全候选之前 —— 这才是「打几笔就上屏」的实现手段,
     前缀联想 + 字频排序做不到 (DESIGN.md §4.1 旧结论错误, 见 docs/REVIEW.md P1-5).
+    v1.4 (A′) 把级别从 (1,2,3) 扩到 (1..7), 本函数逻辑不变 —— 配额/留位/扣位三条规则
+    在 4-7 笔上同样成立, 见 SHORTCODE_LEVELS 的注释.
 
     名额分配 (同一前缀 PAGE_SIZE 个位置, 先扣占位, 余额按字频发):
       1. blocked[前缀]: 同码词组条目 (权重量级压过字频, 抢不动) 先扣掉;
@@ -257,14 +296,10 @@ def build_shortcodes(char_codes, freq, blocked):
 
 
 def encoder_rules():
-    """自动造词公式 (A3): 逐字展开, 每字取前 PHRASE_CODE_STROKES 笔.
-
-    formula 里大写字母 = 第几个字 (A 首字 B 次字…), 小写 = 该字第几笔;
-    U 及其后的字母是**倒数**索引, Z = 末字 (algo/encoder.cc:120).
-    旧版把 4~6 字词合成一条 "…CaCbCcCdZaZbZcZd", 展开成「一二三末」四个字 →
-    5 字词编出「一二三五」、6 字词编出「一二三六」, 与词库「每字前 4 笔全展开」
-    不一致 (实测 4267/4267 个 5 字词、452/452 个 6 字词全部错位, docs/REVIEW.md P1-6).
-    现在按字数逐字展开, 公式与词库编码由同一组常量生成, 不会再各自漂移.
+    """自动造词公式兜底 (v1.4): 主路径是 stem 列 (自然码, 见 base_entries 的 stem),
+    UnityTableEncoder::TranslateWord 查到 stem 就直接用, 公式只在 stem 缺失时兜底.
+    公式仍是「每字前 4 笔」展开 (AaAb…), 与 v1.4 自然码不同 — 但 base 表 stem 列
+    对每个字都有值 (natural_code or 全码兜底), 公式路径实际不触发, 保留作安全网.
     """
     letters = "ABCDEFGHIJKLMNOPQRST"           # 不用 U~Z: 那些是倒数索引
     strokes = "abcdefghijklmnopqrstuvwxyz"[:PHRASE_CODE_STROKES]
@@ -304,6 +339,117 @@ def load_rime_ice(path):
         except ValueError:
             continue
     return result
+
+
+# ============ 自然码 (v1.4 视觉块输入) ============
+# 每字一个自然码 = 整字全码的前缀, 由首部件决定:
+#   首部件 3~5 笔 → 打全部件 (确=石5笔, 明=日4笔, 当=⺌3笔)
+#   首部件 >5 笔或独体 → 打前 4 笔 (我/国/笔)
+#   首部件 <=2 笔 → 打前 4 笔 (认=讠人凑块, 们=亻门5笔由部件规则兜底)
+# 用户视觉块停笔 = 首部件或整块; 词组 = 每字自然码 + 空格分隔 (拼音式多音节).
+# 依据: 用户实测 (2026-08-17) 确/当/笔/认/们/我/第 的自然停笔规律.
+
+# 常用偏旁部首 (终止表): 拆字拆到这些就停 (部件 = 视觉块)
+BUSHOU = {
+    "一": 1, "人": 2, "亻": 2, "讠": 2, "阝": 2, "冫": 2, "亠": 2, "丷": 2,
+    "十": 2, "八": 2, "儿": 2, "几": 2, "刀": 2, "力": 2, "又": 2, "厶": 2,
+    "氵": 3, "扌": 3, "宀": 3, "艹": 3, "辶": 3, "口": 3, "土": 3, "女": 3,
+    "小": 3, "山": 3, "尸": 3, "广": 3, "门": 3, "彳": 3, "犭": 3, "饣": 3,
+    "弓": 3, "马": 3, "子": 3, "寸": 3, "工": 3, "大": 3, "也": 3, "夕": 3,
+    "木": 4, "日": 4, "月": 4, "火": 4, "王": 4, "心": 4, "礻": 4, "斤": 4,
+    "见": 4, "车": 4, "贝": 4, "水": 4, "牛": 4, "手": 4, "毛": 4, "气": 4,
+    "片": 4, "父": 4, "爪": 4, "风": 4, "斗": 4, "文": 4, "方": 4, "云": 4,
+    "元": 4, "天": 4, "太": 4, "少": 4, "户": 4, "支": 4, "不": 4, "止": 4,
+    "歹": 4, "比": 4, "中": 4, "石": 5, "田": 5, "禾": 5, "白": 5, "皮": 5,
+    "目": 5, "衤": 5, "钅": 5, "疒": 5, "立": 5, "穴": 5, "皿": 5, "生": 5,
+    "矢": 5, "示": 5, "瓜": 5, "鸟": 5, "龙": 5, "母": 5, "本": 5, "术": 5,
+    "正": 5, "甘": 5, "世": 5, "古": 5, "电": 5, "甲": 5, "申": 5, "由": 5,
+    "竹": 6, "米": 6, "羊": 6, "羽": 6, "耳": 6, "臣": 6, "自": 6, "至": 6,
+    "舌": 6, "舟": 6, "衣": 6, "西": 6, "页": 6, "血": 6, "虫": 6, "行": 6,
+    "色": 6, "言": 7, "走": 7, "足": 7, "酉": 7, "辛": 7, "辰": 7, "身": 7,
+    "谷": 7, "角": 7, "里": 7, "金": 8, "鱼": 8, "雨": 8, "青": 8, "其": 8,
+    "齿": 8, "隹": 8, "骨": 9, "鬼": 9, "食": 9, "音": 9, "首": 9, "高": 10,
+    "黑": 12, "鹿": 11,
+}
+
+_chaizi_map = None
+
+
+def load_chaizi():
+    """加载拆字表 (data/chaizi-jt.txt, kfcd/chaizi) -> {字: 首部件}"""
+    global _chaizi_map
+    if _chaizi_map is not None:
+        return _chaizi_map
+    _chaizi_map = {}
+    path = os.path.join(DATA, "chaizi-jt.txt")
+    if not os.path.exists(path):
+        return _chaizi_map
+    for line in open(path, encoding="utf-8"):
+        parts = line.rstrip("\n").split("\t")
+        if len(parts) >= 2 and len(parts[0]) == 1:
+            comps = parts[1].split()
+            if comps:
+                _chaizi_map.setdefault(parts[0], comps[0])
+    return _chaizi_map
+
+
+def first_component(ch, char_codes):
+    """返回 (首部件, 有效笔画数). 递归拆到偏旁表或不可拆.
+    首部件 <=2 笔 (主→丶) 用户不会按它停 → 退回整字 (按整字全码长处理)."""
+    split_map = load_chaizi()
+    cur = ch
+    seen = set()
+    for _ in range(6):
+        if cur in BUSHOU:
+            n = BUSHOU[cur]
+            if n >= 3:
+                return cur, n
+            return ch, len(char_codes.get(ch, "")) or 0
+        if cur in seen:
+            break
+        seen.add(cur)
+        nxt = split_map.get(cur)
+        if not nxt or nxt == cur:
+            break
+        cur = nxt
+    return cur, len(char_codes.get(ch, "")) or 0
+
+
+def natural_code(ch, char_codes):
+    """每字自然码 = 整字全码前 N 笔. 查不到码返回 None (该字不参与词组)."""
+    code = char_codes.get(ch)
+    if not code:
+        return None
+    _comp, n = first_component(ch, char_codes)
+    if n <= 2:
+        N = 4
+    elif n <= 5:
+        N = n
+    else:
+        N = 4
+    N = min(N, len(code))
+    return code[:N]
+
+
+def load_char_codes():
+    """字 -> 第一个合法编码 (与 main 生成 char_codes 同逻辑).
+    typing_test.py 复用: 单字自然码 = natural_code(ch, load_char_codes())"""
+    char_map = load_stroke(os.path.join(DATA, "stroke_official.dict.yaml"))
+    char_codes = {}
+    for ch, codes in char_map.items():
+        for code in codes:
+            if set(code) <= VALID_CODE_CHARS:
+                char_codes.setdefault(ch, code)
+                break
+    return char_codes
+
+
+def p50(vals):
+    """中位数 (空列表返回 1, 防除零)"""
+    if not vals:
+        return 1
+    s = sorted(vals)
+    return s[len(s) // 2]
 
 
 def resolve(fn):
@@ -376,6 +522,23 @@ def main():
     print("      雾凇 (词组):", len(rime_ice), "词")
     char_freq = load_char_freq(os.path.join(DATA, "rime_ice_8105.dict.yaml"))
     print("      字频表 (25 亿字语料):", len(char_freq), "字")
+
+    # 词组权重缩放系数: 雾凇独有词 (jieba 没有的词) 原权重 p50≈1040, 双库词 jieba
+    # 词频 p50≈7, 量级差 2-3 个数量级. 不缩放则独有词整体挤压 jieba 常用词.
+    # 线性缩放 (独有词 p50 对齐双库词 jieba p50) 保持独有词之间相对顺序.
+    both_freqs = [jieba[w] for w, f in rime_ice.items()
+                  if w in jieba and f >= PHRASE_MIN_FREQ]
+    only_freqs = [f for w, f in rime_ice.items()
+                  if w not in jieba and f >= PHRASE_MIN_FREQ]
+    PHRASE_SCALE = p50(both_freqs) / p50(only_freqs)
+    # 词组整体提权: jieba 词频 p50≈7 vs 单字字频表 p50≈4200, 差 ~600 倍. 不放大则
+    # 打满编码时 (同码条目全部剩余 0, 纯权重决胜) 任何词组都输给单字字频表 —
+    # 例: 「苹果」码与生僻字「昔」同码, jieba 1334 被字频表 10^5 秒杀 → rank 5;
+    # 放大后 80 万 > 10 万, 「昔」不再挡路, 词组之间仍按 jieba 词频相对排序.
+    SCALE_UP = p50(list(char_freq.values())) / p50(both_freqs)
+    print(f"      词组权重: 双库 jieba p50={p50(both_freqs)}"
+          f", 独有缩放系数={PHRASE_SCALE:.4f}"
+          f", 提权系数={SCALE_UP:.0f} (对齐单字字频表 p50={p50(list(char_freq.values()))})")
 
     # ---- 单字表: 常用字 (GB2312), 权重用《25 亿字语料汉字字频表》----
     # 为什么不用 jieba 单字频次: jieba 的单字项是分词词典的副产物, 量级只有 10^3~10^5,
@@ -454,35 +617,68 @@ def main():
         if not all(c in COMMON_CHARS for c in word):
             skipped["rare_chars"] += 1
             continue
-        # 词组编码: 每字前 PHRASE_CODE_STROKES 笔拼接 (2字词=8笔, 3字词=12笔, 4字词=16笔)
-        # 与用户习惯(每字打4笔)一致; 8笔码槽位 5^8≈39万 ≈ 词组数, 撞码极少.
-        # 只保留简码, 不保留全码 (全码太长无人打, 且前缀联想时同一词会重复占位).
-        short = "".join(
-            next(c for c in char_map[ch] if set(c) <= VALID_CODE_CHARS)[:PHRASE_CODE_STROKES]
-            for ch in word
-        )
-        if len(short) < PHRASE_MIN_CODE_LEN:
-            skipped["short_code"] += 1          # 一人/十一/一一 …… 占短前缀槽位, 不收
+        # 词组编码 (v1.4 视觉块): 每字自然码**连续拼接** (无空格!).
+        # 为什么无空格: librime 编译词典时空格=多音节=拆成多个音节分别进 prism 键集合
+        # (entry_collector.cc: CreateEntry 按空格 split raw_code, 逐个 syllabary.insert),
+        # table_translator 只做整键前缀匹配不组合音节 → 空格编码的词组在 prism 里无整键,
+        # 用户实测"确认打不出来、候选全是单字" (2026-08-17).
+        # 连续串 = 单个超长音节 = 整键进 prism = 前缀匹配直接出词 (v1.3 的成熟机制).
+        # 用户连续打自然码 (每字自然停笔 3~5 笔) 即出词, 无需切分键.
+        codes = []
+        for ch in word:
+            nc = natural_code(ch, char_codes)
+            if not nc:
+                codes = None
+                break
+            codes.append(nc)
+        if codes is None:
+            skipped["unknown_char"] += 1
             continue
+        short = "".join(codes)
+        if len(short.replace(" ", "")) < PHRASE_MIN_CODE_LEN:
+            # A 方案 (v1.4): 超高频短码词放行 (jieba 词频≥阈值), 否则跳过.
+            # 「第一/一个/一些」是用户必打词, 码长 4-5 笔撞排除线 → 误杀.
+            # 放行词权重仍走 ≤7 笔 ×0.001 折扣, 不压单字前缀 (见下方打折).
+            if word in jieba and jieba[word] >= PHRASE_SHORT_FREQ_THRESHOLD:
+                pass
+            else:
+                skipped["short_code"] += 1      # 一人/十一/一一 …… 占短前缀槽位, 不收
+                continue
         if len(short) <= MAX_CODE_LENGTH:
-            phrase_entries.append((word, short, f * PHRASE_WEIGHT_FACTOR))
+            if word in jieba:
+                w = jieba[word]                    # 双库词: jieba 真实语料词频 (常用词靠前)
+            else:
+                w = f * PHRASE_SCALE               # 雾凇独有词: 缩放 (p50 对齐, 不挤压常用词)
+            w = max(1, round(w * SCALE_UP))        # 提到单字量级 (同码决胜不被字频表碾压)
+            # 4-7 笔词组权重打折 (×0.001): 自然码 3-5 笔 → 2字词最短 6 笔, 与单字
+            # 6-7 笔全码同码决胜. 不打折则词组(jieba×717 几千万)碾压单字(字频表几百万),
+            # 终端字打满全码掉出第一页 (实测 78 个: 挂/彩/韩…被土地/地址/城墙压).
+            # 打折后单字第一、词组仍在第一页; 8+ 笔码与单字空间隔离, 不打折.
+            # A 方案放行词 (4-5 笔高频短码词) 例外: 不打折 (jieba×717 全权重),
+            # 否则「第一」被竹头单字(笑/第/等 字频百万)压到 rank 9 (第一页末位).
+            # 放行词仅 22 个超高频词, 用户打它们就是想出词, 提权合理.
+            if len(short) <= 7 and not (word in jieba and jieba[word] >= PHRASE_SHORT_FREQ_THRESHOLD):
+                w = max(1, round(w * 0.001))
+            phrase_entries.append((word, short, w))
     print("      词组条数:", len(phrase_entries))
     print("      跳过统计:", skipped)
 
     # ---- 高频字简码 (A1) ----
     print("[5/8] 生成高频字简码 ...")
     # 短前缀上不参与字频竞争的精确匹配条目 = 同码词组 (权重是词频×系数, 量级压过字频).
-    # PHRASE_MIN_CODE_LEN 已经把 <=3 笔的词组全部挡掉, 这里只是不依赖那个前提.
+    # 这里跟着 SHORTCODE_LEVELS 走: 扩到 7 笔后, 4-7 笔的 15,436 个词组码会自动计入扣位,
+    # 简码就抢不到它们的席位 —— 实测 top3000 词组打满编码的名次零变化.
     blocked = defaultdict(int)
     for _word, code, _w in phrase_entries:
         if len(code) <= max(SHORTCODE_LEVELS):
             blocked[code] += 1
     short_entries, short_stats = build_shortcodes(char_codes, char_freq, blocked)
-    # 全部 <=3 笔的单字条目 (简码 + 本来就 <=3 笔的全码) 统一换成字频权重:
+    # 全部 <=BONUS_STRIP_MAX_LEN 笔的单字条目 (简码 + 本来就这么短的全码) 统一换成字频权重:
     # 同一前缀的精确匹配段这样才是按字频排序. 原来的 jieba 权重量级只有几万,
     # 会让「囗(权重 2)/扌(21)」这类零频字压在「日/最」前面占掉第一页.
+    # 用 BONUS_STRIP_MAX_LEN 而不是 max(SHORTCODE_LEVELS): 理由见该常量的注释.
     for (ch, code) in list(base_codes):
-        if len(code) <= max(SHORTCODE_LEVELS):
+        if len(code) <= BONUS_STRIP_MAX_LEN:
             base_codes[(ch, code)] = max(char_freq.get(ch, 0), 1)
     for ch, code, w in short_entries:
         key = (ch, code)
@@ -491,12 +687,15 @@ def main():
           "(" + ", ".join(f"{k} 笔 {v}" for k, v in sorted(short_stats.items())) + ")")
 
     # ---- 落盘 (按权重降序, RIME by_weight 会重排, 这里排序只为确定性) ----
-    # stem 列 = 该字的规范全码. librime 造词时 UnityTableEncoder::TranslateWord 先查
-    # stem (dict/reverse_lookup_dictionary.cc:LookupStems), 查到就只用 stem 编码 →
-    # 自动造词永远按「每字前 4 笔」出码, 与词组表一致. 没有 stem 列时它会枚举该字的
-    # 全部编码 (含简码) 做 DFS, 而 DFS 上限只有 32 个组合 (algo/encoder.cc:15),
-    # 3/4 字词会被截断 → 学不到正确的码, 还会往用户词典里塞一堆短码垃圾条目.
-    base_entries = [f"{ch}\t{code}\t{w}\t{char_codes.get(ch, code)}" for (ch, code), w in
+    # stem 列 = 该字的全码 (v1.4 视觉块修正). librime 造词时 UnityTableEncoder::TranslateWord
+    # 先查 stem, 查到后由 TableEncoder::Encode 按公式取码 (公式 AaAb… 固定取每字前 4 笔) —
+    # stem 必须 >= 公式取码位数, 否则 3 笔自然码的字 (当/展/问) 公式取第 4 笔会越界.
+    # 全码长度 (6-30 笔) 恒 >= 4, 造词安全. 词组表是自然码连续串 (每字自然停笔),
+    # 自动造词是公式 4 笔制 — 两个体系并存: 词库词打自然码, 新学的词打 4 笔 (词库已覆盖日常).
+    # 没有 stem 列时它会枚举该字的全部编码 (含简码) 做 DFS, 而 DFS 上限只有 32 个组合
+    # (algo/encoder.cc:15), 3/4 字词会被截断 → 学不到正确的码, 还会塞一堆短码垃圾条目.
+    base_entries = [f"{ch}\t{code}\t{w}\t{char_codes.get(ch, code)}"
+                    for (ch, code), w in
                     sorted(base_codes.items(), key=lambda kv: (-kv[1], kv[0][1], kv[0][0]))]
     write_dict(
         os.path.join(BUILD, "stroke_zh_base.dict.yaml"),
@@ -535,20 +734,20 @@ def main():
     schema = f"""# Rime schema: {SCHEMA_ID}
 # encoding: utf-8
 #
-# 笔画·增强: 五笔画 (横竖撇捺折) + 高频字 1/2/3 笔简码 + 词组编码(每字4笔)
+# 笔画·增强: 五笔画 (横竖撇捺折) + 高频字 1~7 笔简码 + 词组(每字自然码+切分)
 # 键位: h=s横 s=竖 p=撇 n=捺 z=折 (兼容 Mac 笔画排位 j/k/l/u/i)
 # 基于官方 rime-stroke 码表 + 雾凇词库词组表生成, 纯离线.
 # 由 scripts/build.py 自动生成, 勿手改; 想调整去改脚本.
 #
-# v1.3 起编码规则变了 (加简码 + 造词公式逐字展开): 升级后**必须清空用户词典**,
-# 否则旧用户词典里按旧公式记下的词条与新码表不一致, 打字会出怪候选.
+# v1.4 词组改视觉块自然码 (v1.3 之后首个发布版, 含词频/A′ 演进) (每字按首部件自然停笔), 编码 = 自然码 + 空格.
+# 升级**必须清空用户词典** (编码格式从每字4笔变自然码+切分).
 
 schema:
   schema_id: {SCHEMA_ID}
   name: "{SCHEMA_NAME}"
-  version: "1.3.0"
+  version: "1.4.0"
   description: |
-    五筆畫 (橫豎撇捺折) + 高頻字簡碼 + 詞組(每字4筆)
+    五筆畫 (橫豎撇捺折) + 高頻字簡碼(1~7筆) + 詞組(每字自然碼)
     h,s,p,n,z = 橫、豎、撇、捺、折
 
 switches:

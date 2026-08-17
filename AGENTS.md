@@ -13,7 +13,7 @@
 | 我要做什么 | 先读 | 改完必做 |
 |---|---|---|
 | **改皮肤**（cskin/、dist/*.cskin） | **docs/SKIN_MODIFICATION.md**（必读，含打包纪律） | `python3 scripts/verify_skin.py`（pre-commit 自动拦） |
-| 改方案/词库（scripts/build.py、data/） | docs/REGRESSION.md | `python3 scripts/validate.py` |
+| 改方案/词库/编码（scripts/build.py、data/） | docs/DESIGN.md（v1.4 编码方案）+ docs/REGRESSION.md | `python3 scripts/validate.py` + **`typing_test.py`（打字效果回归）** |
 | 改笔顺数据（data/） | docs/STROKE_DATA.md | `python3 scripts/validate.py` |
 | 重装/换机部署 | docs/SETUP.md | — |
 | 看迭代历史/布局铁律 | docs/OPTIMIZATIONS.md | — |
@@ -31,6 +31,7 @@
 ```sh
 python3 scripts/build.py                 # 构建方案（数据源 → yaml → zip，含 predict.db 硬检查）
 python3 scripts/validate.py              # 方案离线校验 + 冷启动排名回归
+uv run --with pyyaml python3 scripts/typing_test.py   # 打字效果回归（44 用例，改编码后必跑）
 python3 scripts/verify_skin.py           # 皮肤包完整性校验（工作区 vs HEAD）；--cached 看暂存区
 python3 scripts/build_pinyin.py          # 拼音方案产物
 python3 scripts/gen_symbolic.py          # 重新生成 symbolic 键盘布局（4 yaml + config patch）
@@ -41,5 +42,6 @@ git config core.hooksPath .githooks      # 新 clone 后安装 pre-commit hook�
 ## 项目现状速览
 
 - 双皮肤：**笔画增强**（无源包，纯笔画）/ **笔画拼音**（有源，笔画+T9 拼音）
-- 词汇：雾凇词库（词组，词频策略见 scripts/build.py 注释与 docs/OPTIMIZATIONS.md 三）
-- 验证工具链：build.py → validate.py → verify_skin.py（皮肤）→ REGRESSION.md 清单 → 用户实测
+- **v1.4 编码方案（视觉块输入）**：单字 1~7 笔任意笔数精确匹配（简码配额器）；词组 = 每字**自然码连续串**（我们 = `phshpsnsz`，我 4 笔+们 5 笔），自然码由首部件决定（3~5 笔部件打全 / >5 笔或独体前 4 笔），数据源 `data/chaizi-jt.txt` + BUSHOU 偏旁表。码 <6 笔词组不收、6-7 笔权重 ×0.001、8+ 笔正常；自动造词走 4 笔制（stem=全码）。详见 docs/DESIGN.md §v1.4
+- 词汇：雾凇词库（词组，jieba 词频，词频策略见 scripts/build.py 注释与 docs/OPTIMIZATIONS.md）
+- 验证工具链：build.py → validate.py → **typing_test.py（打字效果回归）** → verify_skin.py（皮肤）→ REGRESSION.md 清单 → 用户实测

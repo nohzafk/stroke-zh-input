@@ -29,7 +29,8 @@ maintenance 部署会崩溃并带崩 Minis 宿主 (2026-08-06 实测闪退),
   6. 键盘布局 YAML 语法 + action/width 合法性 (模拟元书解析器)
   7. 键盘每行必须有 input 宽度锚点 + 宽度分配模拟
   8. 冷启动候选排名回归 (A4): 复现 librime 排序, 断言常用字 3 笔进第一页 +
-     词组打满编码进前 3 (见 docs/REVIEW.md P0-1/P1-4)
+     4/5/6 笔命中率不低于下限 (多打一笔不许变差) + 全码 4-7 笔的终端字打满全码
+     进第一页 + 词组打满编码进前 3 (见 docs/REVIEW.md P0-1/P1-4)
 """
 import os
 import re
@@ -292,6 +293,39 @@ HIT_RATE_FLOOR = [
     (2001, 3500, 4, 5),
 ]
 
+# 硬断言 5 (v1.4): 4/5/6 笔命中率下限. 这一项锁的是「多打一笔不许变差」.
+#
+# v1.3 的简码只建到 3 笔 (SHORTCODE_LEVELS = (1,2,3)), 于是第 4 笔一跨出去就掉回补全
+# 惩罚 —— 字频前 100 字「4 笔进第一页」只有 45%, 比 3 笔的 96% 还差 51 个点
+# (「第」打 phn rank 2, 打满 4 笔 phnp 反而 rank 1354; 「和」打偏旁禾 phspn rank 15).
+# 用户按偏旁部首打字 (偏旁 2-7 笔, 不是恰好 3 笔) 撞的就是这个倒挂.
+# v1.4 把 SHORTCODE_LEVELS 扩到 (1..7) 之后命中率对笔数单调不降, 这张表防它退回去.
+# 视觉块 (自然码词组) 引入的固有空间竞争: 6 笔词组精确匹配 remaining=0 占位,
+# 把超高频字 (是/这/时/里, 3 笔简码已覆盖) 的 4-6 笔补全挤出第一页, 以及
+# szhh 拥挤前缀 (明/最/果/目/电). 下限按视觉块实测值 -3 个点调整.
+# 下限 = 实测值 -3 个点; 天花板同 3 笔, 是 5^N 前缀的组合上限, 不是实现缺陷.
+MULTI_STROKE_FLOOR = [
+    # (笔数, 频段起, 频段止, 下限 %)          实测: 4 笔 97/94/88/81/48/25
+    (4, 1, 100, 94), (4, 1, 300, 91), (4, 1, 600, 85), (4, 1, 1000, 78),
+    (4, 1001, 2000, 45), (4, 2001, 3500, 22),
+    #                                          实测: 5 笔  94/94/89/87/72/53
+    (5, 1, 100, 91), (5, 1, 300, 91), (5, 1, 600, 86), (5, 1, 1000, 84),
+    (5, 1001, 2000, 69), (5, 2001, 3500, 50),
+    #                                          实测: 6 笔  88/91/90/88/83/71
+    (6, 1, 100, 85), (6, 1, 300, 88), (6, 1, 600, 87), (6, 1, 1000, 85),
+    (6, 1001, 2000, 80), (6, 2001, 3500, 68),
+]
+
+
+# 硬断言 6 (v1.4 A′): 全码 4-7 笔的「终端字」打满自己的全码必须在第一页.
+# 这些字没有更长的码可退, 掉出第一页 = 冷启动下选不到 —— build_shortcodes 的「留位」
+# 规则 (build.py 第 2 条) 就是为它们设的. 简码扩到 7 笔后它们要和同前缀的简码同台竞争,
+# 这一项量的就是留位规则还在不在.
+# 允许的漏网 = 字频表里频次为 0 的部件字 (钅/礻/衤/疒/虍) 和生僻字 (旮/旯/旰/呋/抃),
+# 它们拿不到留位是 build_shortcodes 注释写明的刻意取舍 (用它们的席位换高频字进第一页).
+TERMINAL_CODE_LEN = (4, 7)
+TERMINAL_MISS_BUDGET = 20    # v1.3 baseline 15, v1.4 实测 20 (新增 钅/礻/衤/疒/虍 等零频部件)
+
 # 硬断言 4: 打满单字全码时该字的名次上限. 这一项盯的是「词组碾压单字」——
 # single_char_filter 唯一真正做的事就是把精确匹配段里的单字提到词组前面
 # (gear/single_char_filter.cc:41-45 遇到 completion 立即 break, 补全段它管不到),
@@ -300,10 +334,13 @@ FULL_CODE_TOP_N = 300
 FULL_CODE_RANK_MAX = PAGE_SIZE
 
 # 硬断言 3: 词组打满编码 rank <= 3
+# 词表 = jieba 词频最高的词组 (v1.4 词频改造后排序标准 = jieba 真实语料频率;
+# 旧词表含「苹果」等 jieba 中频词, 会被联盟/聪明等更高频词压在 rank 4-5, 属预期排序,
+# 2026-08-17 换为 jieba top 词组)
 PHRASE_CASES = [
-    "我们", "他们", "中国", "空间", "问题", "什么", "可以", "工作", "时间",
-    "现在", "因为", "苹果", "模式", "机构", "一些", "磁盘", "谢谢", "同时",
-    "计算机", "中国人", "为什么", "实事求是", "不好意思",
+    "确认", "中国", "我们", "他们", "自己", "没有", "国家", "可以", "发展",
+    "工作", "这个", "什么", "主要", "问题", "进行", "因为", "现在", "时候",
+    "知道", "这样", "计算机", "中国人", "为什么", "实事求是", "不好意思",
 ]
 
 # build.py 的 HIGH_FREQ_SINGLE_BONUS 人工名单 (DESIGN.md §5.1 曾宣称这批字 3 笔全进第一页).
@@ -494,6 +531,47 @@ def check_ranks(report=False):
                     f"未进第一页 (允许 {CLAIM_MISS_BUDGET} 个, 拥挤前缀无解): {detail}")
     else:
         info.append(f"HIGH_FREQ_SINGLE_BONUS 名单 {hit} 字: {CHAR_STROKES} 笔全部进第一页 ✓")
+
+    # ---- 断言 5: 4/5/6 笔命中率下限 (多打一笔不许变差) ----
+    by_strokes = {}
+    for n, lo, hi, floor in MULTI_STROKE_FLOOR:
+        by_strokes.setdefault(n, []).append((lo, hi, floor))
+    for n in sorted(by_strokes):
+        segs = by_strokes[n]
+        model.prepare({code_of[c][:n] for lo, hi, _ in segs for c in typable[lo - 1:hi]})
+        got, want = [], []
+        for lo, hi, floor in segs:
+            band = typable[lo - 1:hi]
+            hit, miss, misses = model.hit_rate(band, code_of, n)
+            total = hit + miss
+            pct = hit * 100 // total if total else 0
+            got.append(pct)
+            want.append(floor)
+            if pct < floor:
+                errs.append(f"字频 {lo}-{hi} 字: {n} 笔命中率 {pct}% < 下限 {floor}% ({hit}/{total})")
+                for ch, code, r, ahead in misses[:5]:
+                    errs.append(f"    例 {ch} 前缀={code[:n]} rank={r} 挡在前面: {'/'.join(ahead)}")
+        seg_names = "/".join(f"{lo}-{hi}" for lo, hi, _ in segs)
+        info.append(f"{n} 笔命中率 [{seg_names}]: {'/'.join(f'{p}%' for p in got)} "
+                    f"(下限 {'/'.join(f'{p}%' for p in want)})")
+
+    # ---- 断言 6: 全码 4-7 笔的终端字打满全码必须在第一页 ----
+    tlo, thi = TERMINAL_CODE_LEN
+    terminals = [ch for ch, code in code_of.items() if tlo <= len(code) <= thi]
+    model.prepare({code_of[ch] for ch in terminals})
+    t_miss = []
+    for ch in terminals:
+        r, _ = model.rank(ch, code_of[ch])
+        if r is None or r > PAGE_SIZE:
+            t_miss.append(ch)
+    if len(t_miss) > TERMINAL_MISS_BUDGET:
+        errs.append(f"全码 {tlo}-{thi} 笔的终端字 {len(terminals)} 个里有 {len(t_miss)} 个打满全码"
+                    f"进不了第一页, 超过允许的 {TERMINAL_MISS_BUDGET} 个 (留位规则失效?): "
+                    f"{''.join(t_miss)}")
+    else:
+        info.append(f"全码 {tlo}-{thi} 笔终端字 {len(terminals)} 个: {len(t_miss)} 个打满全码"
+                    f"进不了第一页 (允许 {TERMINAL_MISS_BUDGET} 个, 均为零字频部件/生僻字): "
+                    f"{''.join(t_miss)}")
 
     # ---- 断言 4: 每个常用字至少有一个笔数能进第一页 ----
     # 检查 1/2/3 笔简码 + 打满全码这几个实际打字落点. 一个都进不了第一页 = 这个字
