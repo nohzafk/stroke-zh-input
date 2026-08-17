@@ -1,0 +1,22 @@
+#!/bin/sh
+# 皮肤包改动提交前自动校验 (SKIN_MODIFICATION.md 金律 3)
+# 检测到 dist/*.cskin 被暂存时，自动跑 verify_skin.py --cached，
+# 非预期变化（删除文件 / 非 config.yaml 内容变化）直接阻止提交。
+#
+# 安装:  git config core.hooksPath .githooks
+# 绕过:  git commit --no-verify  (仅在确认破坏性变更必要时，且需人工核对)
+
+STAGED_SKIN=$(git diff --cached --name-only -- 'dist/*.cskin')
+if [ -z "$STAGED_SKIN" ]; then
+    exit 0
+fi
+
+echo "== 检测到皮肤包改动，运行 scripts/verify_skin.py --cached =="
+python3 scripts/verify_skin.py --cached
+if [ $? -ne 0 ]; then
+    echo "✗ 皮肤校验未通过，提交已阻止。"
+    echo "  修复: 按 docs/SKIN_MODIFICATION.md 重新打包（解包旧包增量更新），重新 git add 后再提交。"
+    echo "  确属必要破坏性变更: git commit --no-verify 并人工核对回归清单。"
+    exit 1
+fi
+exit 0
